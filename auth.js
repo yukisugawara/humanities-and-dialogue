@@ -19,14 +19,18 @@
         padding:2.5rem;max-width:360px;width:90%;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.1);
         border:1px solid rgba(255,255,255,0.9);">
         <div style="margin-bottom:1.5rem;">
-          <svg width="56" height="56" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto;">
-            <rect x="4" y="4" width="72" height="72" rx="24" fill="url(#authGrad2)"/>
-            <path d="M24 28C24 28 28 20 40 20C52 20 56 28 56 28C56 28 60 36 56 44C52 52 44 56 40 58C36 56 28 52 24 44C20 36 24 28 24 28Z" fill="white" fill-opacity="0.95"/>
-            <circle cx="33" cy="34" r="3" fill="#7c3aed"/>
-            <circle cx="47" cy="34" r="3" fill="#ec4899"/>
-            <path d="M34 44C34 44 37 48 40 48C43 48 46 44 46 44" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M20 50L14 62L28 56" fill="white" fill-opacity="0.95"/>
-            <defs><linearGradient id="authGrad2" x1="0" y1="0" x2="80" y2="80"><stop stop-color="#7c3aed"/><stop offset="0.5" stop-color="#ec4899"/><stop offset="1" stop-color="#f59e0b"/></linearGradient></defs>
+          <svg width="64" height="64" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto;">
+            <defs>
+              <linearGradient id="authA" x1="0" y1="0" x2="70" y2="70"><stop stop-color="#c084fc"/><stop offset="1" stop-color="#818cf8"/></linearGradient>
+              <linearGradient id="authB" x1="50" y1="30" x2="120" y2="100"><stop stop-color="#f9a8d4"/><stop offset="1" stop-color="#fb923c"/></linearGradient>
+            </defs>
+            <ellipse cx="44" cy="52" rx="32" ry="28" fill="url(#authA)" opacity="0.85"/>
+            <ellipse cx="76" cy="58" rx="32" ry="28" fill="url(#authB)" opacity="0.75"/>
+            <ellipse cx="60" cy="55" rx="14" ry="12" fill="white" opacity="0.5"/>
+            <circle cx="36" cy="48" r="3" fill="white" opacity="0.9"/>
+            <circle cx="42" cy="44" r="2" fill="white" opacity="0.7"/>
+            <circle cx="82" cy="54" r="3" fill="white" opacity="0.9"/>
+            <circle cx="76" cy="50" r="2" fill="white" opacity="0.7"/>
           </svg>
         </div>
         <p style="font-size:1.1rem;font-weight:800;color:#1f2937;margin-bottom:0.25rem;">人文学と対話</p>
