@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>第1回 イントロダクション＋対話とは何をすることか？ | 人文学と対話（2026春）</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
@@ -126,6 +127,7 @@
   </style>
 </head>
 <body class="gradient-bg min-h-screen relative overflow-x-hidden">
+  <canvas id="three-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
 
   <!-- Floating decorative blobs -->
   <div class="blob w-96 h-96 bg-emerald-300 top-20 -left-48 fixed" style="animation-delay: 0s;"></div>
@@ -382,5 +384,97 @@
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
+<script>
+(function() {
+  const canvas = document.getElementById('three-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.z = 20;
+
+  const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+  document.addEventListener('mousemove', (e) => {
+    mouse.tx = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouse.ty = -(e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  const colors = [
+    new THREE.Color('#c084fc'),
+    new THREE.Color('#f9a8d4'),
+    new THREE.Color('#67e8f9'),
+    new THREE.Color('#fbbf24'),
+    new THREE.Color('#86efac'),
+  ];
+
+  const geometries = [
+    new THREE.TorusKnotGeometry(1, 0.3, 100, 16),
+    new THREE.IcosahedronGeometry(1, 0),
+    new THREE.OctahedronGeometry(1, 0),
+    new THREE.TorusGeometry(1, 0.4, 16, 32),
+    new THREE.DodecahedronGeometry(1, 0),
+  ];
+
+  const meshes = [];
+  geometries.forEach((geo, i) => {
+    const mat = new THREE.MeshPhysicalMaterial({
+      color: colors[i % colors.length],
+      transparent: true,
+      opacity: 0.12,
+      wireframe: Math.random() > 0.5,
+      roughness: 0.1,
+      metalness: 0.3,
+      side: THREE.DoubleSide,
+    });
+    const mesh = new THREE.Mesh(geo, mat);
+    const angle = (i / geometries.length) * Math.PI * 2;
+    const radius = 6 + Math.random() * 6;
+    mesh.position.set(Math.cos(angle) * radius, Math.sin(angle) * radius * 0.6, -5 + Math.random() * 10);
+    mesh.scale.setScalar(0.8 + Math.random() * 1.2);
+    mesh.userData = {
+      baseX: mesh.position.x, baseY: mesh.position.y, baseZ: mesh.position.z,
+      rotSpeed: 0.002 + Math.random() * 0.008,
+      floatSpeed: 0.3 + Math.random() * 0.7,
+      floatAmp: 0.3 + Math.random() * 0.5,
+      phase: Math.random() * Math.PI * 2,
+    };
+    scene.add(mesh);
+    meshes.push(mesh);
+  });
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
+  dirLight.position.set(5, 5, 5);
+  scene.add(dirLight);
+
+  let time = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.01;
+    mouse.x += (mouse.tx - mouse.x) * 0.05;
+    mouse.y += (mouse.ty - mouse.y) * 0.05;
+    meshes.forEach((mesh) => {
+      const d = mesh.userData;
+      mesh.rotation.x += d.rotSpeed;
+      mesh.rotation.y += d.rotSpeed * 0.7;
+      mesh.position.x = d.baseX + Math.sin(time * d.floatSpeed + d.phase) * d.floatAmp + mouse.x * 1.5;
+      mesh.position.y = d.baseY + Math.cos(time * d.floatSpeed + d.phase) * d.floatAmp + mouse.y * 1.2;
+    });
+    camera.position.x += (mouse.x * 2 - camera.position.x) * 0.02;
+    camera.position.y += (mouse.y * 1.5 - camera.position.y) * 0.02;
+    camera.lookAt(0, 0, 0);
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+</script>
 </body>
 </html>

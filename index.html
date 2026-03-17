@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>人文学と対話（2026春） | 大阪大学大学院人文学研究科</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
@@ -135,6 +136,9 @@
 </head>
 <body class="gradient-bg min-h-screen relative overflow-x-hidden">
 
+  <!-- Three.js Canvas -->
+  <canvas id="three-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
   <!-- Floating decorative blobs -->
   <div class="blob w-96 h-96 bg-purple-300 top-20 -left-48 fixed" style="animation-delay: 0s;"></div>
   <div class="blob w-80 h-80 bg-pink-300 top-1/2 -right-40 fixed" style="animation-delay: 2s;"></div>
@@ -151,7 +155,7 @@
         <a href="#sessions" class="hover:text-purple-600 transition-colors hidden sm:block">授業一覧</a>
         <a href="#info" class="hover:text-purple-600 transition-colors hidden sm:block">お知らせ</a>
         <a href="#videos" class="hover:text-purple-600 transition-colors hidden sm:block">動画</a>
-        <a href="https://us02web.zoom.us/j/83081019819?pwd=fFIlzyPpT9gPdXftiPOagUl7MHWl2f.1"
+        <a href="https://us02web.zoom.us/j/83866414498?pwd=QOvOgJtDcmkuqkU34zqd5C5Aclia7d.1"
            target="_blank"
            class="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-semibold hover:shadow-lg hover:shadow-purple-200 transition-all">
           Zoom参加
@@ -202,9 +206,9 @@
           <h3 class="font-bold text-lg text-gray-800">Zoomリンク</h3>
         </div>
         <div class="space-y-2 text-sm text-gray-600">
-          <p>ミーティング ID: <span class="font-mono font-semibold text-gray-800">830 8101 9819</span></p>
-          <p>パスコード: <span class="font-mono font-semibold text-gray-800">333190</span></p>
-          <a href="https://us02web.zoom.us/j/83081019819?pwd=fFIlzyPpT9gPdXftiPOagUl7MHWl2f.1"
+          <p>ミーティング ID: <span class="font-mono font-semibold text-gray-800">838 6641 4498</span></p>
+          <p>パスコード: <span class="font-mono font-semibold text-gray-800">640178</span></p>
+          <a href="https://us02web.zoom.us/j/83866414498?pwd=QOvOgJtDcmkuqkU34zqd5C5Aclia7d.1"
              target="_blank"
              class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium mt-2">
             Zoomに参加する →
@@ -216,13 +220,54 @@
       <div class="fade-in glass rounded-3xl p-6 sm:p-8">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-xl">📝</div>
-          <h3 class="font-bold text-lg text-gray-800">レポート提出について</h3>
+          <h3 class="font-bold text-lg text-gray-800">最終レポート課題</h3>
         </div>
-        <div class="text-sm text-gray-600 space-y-2">
-          <p>最終レポートについての情報をよく読み、形式にしたがってレポートを作成、提出してください。</p>
+        <div class="text-sm text-gray-600 space-y-3">
           <p class="bg-pink-50 text-pink-700 font-semibold px-3 py-2 rounded-xl inline-block">
-            締切：CLEに添付ファイル（pdf）にて提出
+            CLEに添付ファイル（PDF）にて提出｜春学期：6月25日（木）／夏学期：8月11日（火）
           </p>
+
+          <div class="bg-white/50 rounded-2xl p-4 space-y-2">
+            <p class="font-semibold text-gray-800">提出形式</p>
+            <ul class="list-disc list-inside space-y-1 text-xs text-gray-600">
+              <li>冒頭に「人文学と対話 ○学期 最終レポート 学籍番号 氏名」と記載</li>
+              <li>（1）と（2）を一つのPDFファイルにまとめる</li>
+              <li>各論述1500字以上2000字以内、文字数を各論述の最後に記載</li>
+            </ul>
+          </div>
+
+          <details class="bg-white/50 rounded-2xl p-4 cursor-pointer">
+            <summary class="font-semibold text-gray-800">（1）「対話」と「協働の探究」について</summary>
+            <div class="mt-3 space-y-2 text-xs text-gray-600">
+              <p>対話と協働の探究という考え方・方法について理解したことと、クラスのメンバーとの対話・協働の探究の経験を総合して、学んだこと・考えたことを述べてください。</p>
+              <p class="text-rose-600 font-semibold">※ 生成型AIは使用できません</p>
+              <p class="font-semibold text-gray-700 mt-2">主要文献：</p>
+              <ul class="list-disc list-inside space-y-1">
+                <li>授業の配布スライドや第2回・第3回の事前学習動画の内容</li>
+                <li>高橋のオンライン連載「<a href="https://jnapcdc.com/LA/takahashi/" target="_blank" class="text-purple-600 hover:underline">なかなか会えないときだから考える、コロナ時代の対話とケア</a>」session1〜6</li>
+              </ul>
+              <p class="font-semibold text-gray-700 mt-2">参考文献：</p>
+              <ul class="list-disc list-inside space-y-1">
+                <li>D.ボーム『ダイアローグ―対立から共生へ、議論から対話へ』英知出版, 2007年</li>
+                <li>安斎勇樹・塩瀬隆之『問いのデザイン』学芸出版社, 2020年（PartⅠ1章〜PartⅡ2章）</li>
+                <li>高橋綾・ほんまなほ『こどものてつがく ケアと幸せのための対話』大阪大学出版会, 2018年</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="bg-white/50 rounded-2xl p-4 cursor-pointer">
+            <summary class="font-semibold text-gray-800">（2）現代における人文学研究の課題について</summary>
+            <div class="mt-3 space-y-2 text-xs text-gray-600">
+              <p>第5回〜第8回のテーマから最も関心がある回を選び、そのテーマに関連する〈問い〉を立て、考えを述べてください。論述の初めに「第○回：問い〜〜〜」と記載。</p>
+              <p class="text-amber-600 font-semibold">※ 生成型AIは使用可（使用箇所と方法を明記。使い方も評価対象）</p>
+              <ul class="list-disc list-inside space-y-1 mt-2">
+                <li>〈問い〉の基準は授業で紹介した対話と探究のための〈問い〉と同じ</li>
+                <li>第6・7回：事例の是非だけでなく、人文学研究（者）にとっての課題も考察</li>
+                <li>第8回：ハウツーではなく、自分や他の人の考えを論述する問いに</li>
+                <li>事前学習動画・スライド・グループ討議の内容も踏まえて作成</li>
+              </ul>
+            </div>
+          </details>
         </div>
       </div>
     </div>
@@ -276,7 +321,7 @@
           <div class="number-badge">3</div>
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2 mb-2">
-              <span class="pill bg-violet-100 text-violet-700">探究</span>
+              <span class="pill bg-violet-100 text-violet-700">問い</span>
             </div>
             <h3 class="font-bold text-gray-800 mb-1 group-hover:text-purple-600 transition-colors">協働の探究のための〈問い〉を立て、共有する</h3>
             <p class="text-sm text-gray-500">Inquiry Question・グループワーク</p>
@@ -293,7 +338,7 @@
           <div class="number-badge">4</div>
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2 mb-2">
-              <span class="pill bg-orange-100 text-orange-700">議論</span>
+              <span class="pill bg-orange-100 text-orange-700">聴く</span>
             </div>
             <h3 class="font-bold text-gray-800 mb-1 group-hover:text-purple-600 transition-colors">「人文学は役に立つのか」：現代における人文学の課題</h3>
             <p class="text-sm text-gray-500">言いっぱなし聞きっぱなしの対話</p>
@@ -386,9 +431,9 @@
         <a href="https://youtube.com/playlist?list=PLiYitR2j3lUdi-sP50hIRLFKdn2MoN-yM&si=W6693mfuiK8x0uwT"
            target="_blank"
            class="flex items-center gap-3 p-4 rounded-2xl bg-white/50 hover:bg-white/80 transition-all group">
-          <div class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center text-white text-sm flex-shrink-0">▶</div>
+          <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-white text-sm flex-shrink-0">📖</div>
           <div>
-            <p class="font-semibold text-gray-800 group-hover:text-red-600 transition-colors text-sm">講義外の学習動画</p>
+            <p class="font-semibold text-gray-800 group-hover:text-amber-600 transition-colors text-sm">事前学習動画</p>
             <p class="text-xs text-gray-500">第1回授業後〜第8回授業前</p>
           </div>
         </a>
@@ -400,26 +445,6 @@
           <div>
             <p class="font-semibold text-gray-800 group-hover:text-red-600 transition-colors text-sm">講義動画</p>
             <p class="text-xs text-gray-500">第1回授業〜第8回授業</p>
-          </div>
-        </a>
-
-        <a href="https://youtube.com/playlist?list=PLiYitR2j3lUclYIrZYDeKYF7-aqRKLKIX&si=730iySrUi2zr4CC4"
-           target="_blank"
-           class="flex items-center gap-3 p-4 rounded-2xl bg-white/50 hover:bg-white/80 transition-all group">
-          <div class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center text-white text-sm flex-shrink-0">▶</div>
-          <div>
-            <p class="font-semibold text-gray-800 group-hover:text-red-600 transition-colors text-sm">第8回 事前学習動画</p>
-            <p class="text-xs text-gray-500">修了生インタビュー</p>
-          </div>
-        </a>
-
-        <a href="https://vimeo.com/923624447/c9319fc36c?share=copy"
-           target="_blank"
-           class="flex items-center gap-3 p-4 rounded-2xl bg-white/50 hover:bg-white/80 transition-all group">
-          <div class="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center text-white text-sm flex-shrink-0">▶</div>
-          <div>
-            <p class="font-semibold text-gray-800 group-hover:text-sky-600 transition-colors text-sm">第7回 事前学習動画</p>
-            <p class="text-xs text-gray-500">Vimeo（1/3 + 2/3）</p>
           </div>
         </a>
       </div>
@@ -445,6 +470,132 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+  <!-- Three.js Scene -->
+  <script>
+  (function() {
+    const canvas = document.getElementById('three-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.z = 20;
+
+    // Mouse tracking
+    const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+    document.addEventListener('mousemove', (e) => {
+      mouse.tx = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouse.ty = -(e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    // Colors matching the pastel gradient theme
+    const colors = [
+      new THREE.Color('#c084fc'), // purple
+      new THREE.Color('#f9a8d4'), // pink
+      new THREE.Color('#67e8f9'), // cyan
+      new THREE.Color('#fbbf24'), // amber
+      new THREE.Color('#86efac'), // green
+      new THREE.Color('#a5b4fc'), // indigo
+      new THREE.Color('#fca5a5'), // red
+    ];
+
+    // Create floating geometries
+    const geometries = [
+      new THREE.TorusKnotGeometry(1, 0.3, 100, 16),
+      new THREE.IcosahedronGeometry(1, 0),
+      new THREE.OctahedronGeometry(1, 0),
+      new THREE.TorusGeometry(1, 0.4, 16, 32),
+      new THREE.DodecahedronGeometry(1, 0),
+      new THREE.TetrahedronGeometry(1, 0),
+      new THREE.ConeGeometry(0.8, 1.6, 6),
+    ];
+
+    const meshes = [];
+    geometries.forEach((geo, i) => {
+      const mat = new THREE.MeshPhysicalMaterial({
+        color: colors[i % colors.length],
+        transparent: true,
+        opacity: 0.15,
+        wireframe: Math.random() > 0.5,
+        roughness: 0.1,
+        metalness: 0.3,
+        side: THREE.DoubleSide,
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+
+      // Distribute across the viewport
+      const angle = (i / geometries.length) * Math.PI * 2;
+      const radius = 6 + Math.random() * 6;
+      mesh.position.set(
+        Math.cos(angle) * radius,
+        Math.sin(angle) * radius * 0.6,
+        -5 + Math.random() * 10
+      );
+      mesh.scale.setScalar(0.8 + Math.random() * 1.2);
+
+      mesh.userData = {
+        baseX: mesh.position.x,
+        baseY: mesh.position.y,
+        baseZ: mesh.position.z,
+        rotSpeed: 0.002 + Math.random() * 0.008,
+        floatSpeed: 0.3 + Math.random() * 0.7,
+        floatAmp: 0.3 + Math.random() * 0.5,
+        phase: Math.random() * Math.PI * 2,
+      };
+
+      scene.add(mesh);
+      meshes.push(mesh);
+    });
+
+    // Soft lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
+    dirLight.position.set(5, 5, 5);
+    scene.add(dirLight);
+    const pointLight = new THREE.PointLight('#c084fc', 0.5, 50);
+    pointLight.position.set(-5, 3, 5);
+    scene.add(pointLight);
+
+    // Animation loop
+    let time = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      time += 0.01;
+
+      // Smooth mouse follow
+      mouse.x += (mouse.tx - mouse.x) * 0.05;
+      mouse.y += (mouse.ty - mouse.y) * 0.05;
+
+      meshes.forEach((mesh) => {
+        const d = mesh.userData;
+        // Gentle rotation
+        mesh.rotation.x += d.rotSpeed;
+        mesh.rotation.y += d.rotSpeed * 0.7;
+
+        // Floating motion
+        mesh.position.x = d.baseX + Math.sin(time * d.floatSpeed + d.phase) * d.floatAmp + mouse.x * 1.5;
+        mesh.position.y = d.baseY + Math.cos(time * d.floatSpeed + d.phase) * d.floatAmp + mouse.y * 1.2;
+      });
+
+      camera.position.x += (mouse.x * 2 - camera.position.x) * 0.02;
+      camera.position.y += (mouse.y * 1.5 - camera.position.y) * 0.02;
+      camera.lookAt(0, 0, 0);
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  })();
   </script>
 </body>
 </html>
