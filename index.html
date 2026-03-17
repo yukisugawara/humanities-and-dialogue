@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>人文学と対話（2026春） | 大阪大学大学院人文学研究科</title>
+  <title>人文学と対話（2026） | 大阪大学大学院人文学研究科</title>
+  <script src="auth.js" defer></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
@@ -23,6 +23,35 @@
   <style>
     * { font-family: 'Noto Sans JP', 'Zen Kaku Gothic New', sans-serif; }
 
+    /* Splash screen */
+    .splash {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #7c3aed, #ec4899, #f59e0b);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .splash.done {
+      opacity: 0;
+      transform: scale(1.1);
+      pointer-events: none;
+    }
+    .splash-logo {
+      opacity: 0;
+      transform: scale(0.8);
+      animation: splashIn 0.6s ease forwards 0.2s;
+    }
+    @keyframes splashIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+    .splash-text {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: splashTextIn 0.5s ease forwards 0.6s;
+    }
+    @keyframes splashTextIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* Animated gradient background */
     .gradient-bg {
       background: linear-gradient(-45deg, #fef3c7, #fce7f3, #e0e7ff, #ccfbf1, #fef3c7);
@@ -35,7 +64,6 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Glassmorphism */
     .glass {
       background: rgba(255, 255, 255, 0.6);
       backdrop-filter: blur(20px);
@@ -49,7 +77,6 @@
       border: 1px solid rgba(255, 255, 255, 0.9);
     }
 
-    /* Hero gradient text */
     .gradient-text {
       background: linear-gradient(135deg, #7c3aed, #ec4899, #f59e0b);
       -webkit-background-clip: text;
@@ -57,7 +84,6 @@
       background-clip: text;
     }
 
-    /* Card hover */
     .session-card {
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -66,7 +92,6 @@
       box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.15);
     }
 
-    /* Fade in animation */
     .fade-in {
       opacity: 0;
       transform: translateY(30px);
@@ -77,7 +102,6 @@
       transform: translateY(0);
     }
 
-    /* Stagger children */
     .stagger > *:nth-child(1) { transition-delay: 0.05s; }
     .stagger > *:nth-child(2) { transition-delay: 0.1s; }
     .stagger > *:nth-child(3) { transition-delay: 0.15s; }
@@ -87,7 +111,6 @@
     .stagger > *:nth-child(7) { transition-delay: 0.35s; }
     .stagger > *:nth-child(8) { transition-delay: 0.4s; }
 
-    /* Floating blobs */
     .blob {
       position: absolute;
       border-radius: 50%;
@@ -101,28 +124,19 @@
       66% { transform: translate(-20px, 20px) scale(0.9); }
     }
 
-    /* Smooth scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(124, 58, 237, 0.3); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(124, 58, 237, 0.5); }
 
-    /* Number badge */
     .number-badge {
       background: linear-gradient(135deg, #7c3aed, #ec4899);
       color: white;
-      width: 3rem;
-      height: 3rem;
+      width: 3rem; height: 3rem;
       border-radius: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 1.1rem;
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.1rem; flex-shrink: 0;
     }
 
-    /* Pill */
     .pill {
       display: inline-block;
       padding: 0.25rem 0.75rem;
@@ -131,13 +145,41 @@
       font-weight: 600;
     }
 
+    /* Logo animation */
+    .logo-bubble {
+      position: relative;
+      width: 56px; height: 56px;
+    }
+    .logo-bubble svg {
+      filter: drop-shadow(0 4px 12px rgba(124, 58, 237, 0.3));
+      transition: transform 0.3s ease;
+    }
+    .logo-bubble:hover svg {
+      transform: scale(1.1) rotate(-5deg);
+    }
+
     html { scroll-behavior: smooth; }
   </style>
 </head>
 <body class="gradient-bg min-h-screen relative overflow-x-hidden">
 
-  <!-- Three.js Canvas -->
-  <canvas id="three-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+  <!-- Splash Screen -->
+  <div class="splash" id="splash">
+    <div class="text-center text-white">
+      <div class="splash-logo mb-6">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="72" height="72" rx="24" fill="white" fill-opacity="0.2"/>
+          <path d="M24 28C24 28 28 20 40 20C52 20 56 28 56 28C56 28 60 36 56 44C52 52 44 56 40 58C36 56 28 52 24 44C20 36 24 28 24 28Z" fill="white" fill-opacity="0.9"/>
+          <circle cx="33" cy="34" r="3" fill="#7c3aed"/>
+          <circle cx="47" cy="34" r="3" fill="#ec4899"/>
+          <path d="M34 44C34 44 37 48 40 48C43 48 46 44 46 44" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M20 50L14 62L28 56" fill="white" fill-opacity="0.9"/>
+        </svg>
+      </div>
+      <p class="splash-text text-2xl font-black tracking-wider">人文学と対話</p>
+      <p class="splash-text text-sm font-light mt-2 opacity-80">Humanities & Dialogue</p>
+    </div>
+  </div>
 
   <!-- Floating decorative blobs -->
   <div class="blob w-96 h-96 bg-purple-300 top-20 -left-48 fixed" style="animation-delay: 0s;"></div>
@@ -147,8 +189,18 @@
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 glass-strong">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2 text-gray-800 font-bold text-sm sm:text-base">
-        <span class="text-xl">💬</span>
+      <a href="#" class="flex items-center gap-2 text-gray-800 font-bold text-sm sm:text-base group">
+        <div class="logo-bubble w-8 h-8">
+          <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="72" height="72" rx="24" fill="url(#navGrad)"/>
+            <path d="M24 28C24 28 28 20 40 20C52 20 56 28 56 28C56 28 60 36 56 44C52 52 44 56 40 58C36 56 28 52 24 44C20 36 24 28 24 28Z" fill="white" fill-opacity="0.95"/>
+            <circle cx="33" cy="34" r="3" fill="#7c3aed"/>
+            <circle cx="47" cy="34" r="3" fill="#ec4899"/>
+            <path d="M34 44C34 44 37 48 40 48C43 48 46 44 46 44" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M20 50L14 62L28 56" fill="white" fill-opacity="0.95"/>
+            <defs><linearGradient id="navGrad" x1="0" y1="0" x2="80" y2="80"><stop stop-color="#7c3aed"/><stop offset="0.5" stop-color="#ec4899"/><stop offset="1" stop-color="#f59e0b"/></linearGradient></defs>
+          </svg>
+        </div>
         <span>人文学と対話</span>
       </a>
       <div class="flex items-center gap-3 sm:gap-6 text-sm font-medium text-gray-600">
@@ -168,14 +220,25 @@
   <header class="relative pt-32 pb-20 px-4 sm:px-6">
     <div class="max-w-4xl mx-auto text-center">
       <div class="fade-in">
+        <div class="mb-6 flex justify-center">
+          <svg width="96" height="96" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-xl">
+            <rect x="4" y="4" width="72" height="72" rx="24" fill="url(#heroGrad)"/>
+            <path d="M24 28C24 28 28 20 40 20C52 20 56 28 56 28C56 28 60 36 56 44C52 52 44 56 40 58C36 56 28 52 24 44C20 36 24 28 24 28Z" fill="white" fill-opacity="0.95"/>
+            <circle cx="33" cy="34" r="3" fill="#7c3aed"/>
+            <circle cx="47" cy="34" r="3" fill="#ec4899"/>
+            <path d="M34 44C34 44 37 48 40 48C43 48 46 44 46 44" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M20 50L14 62L28 56" fill="white" fill-opacity="0.95"/>
+            <defs><linearGradient id="heroGrad" x1="0" y1="0" x2="80" y2="80"><stop stop-color="#7c3aed"/><stop offset="0.5" stop-color="#ec4899"/><stop offset="1" stop-color="#f59e0b"/></linearGradient></defs>
+          </svg>
+        </div>
         <p class="text-sm font-semibold text-purple-600 tracking-widest uppercase mb-4">
           大阪大学大学院 人文学研究科
         </p>
-        <h1 class="text-4xl sm:text-5xl md:text-7xl font-black leading-tight mb-6">
-          <span class="gradient-text">人文学基礎</span><br>
-          <span class="text-gray-800 text-3xl sm:text-4xl md:text-5xl">人文学と対話</span>
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-black leading-tight mb-4">
+          <span class="gradient-text">人文学基礎</span>
         </h1>
-        <p class="text-lg sm:text-xl text-gray-500 font-light mb-8">2026年度 春学期</p>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4">人文学と対話</h2>
+        <p class="text-lg sm:text-xl text-gray-500 font-light mb-8">2026年度</p>
       </div>
 
       <div class="fade-in flex flex-wrap justify-center gap-3 mb-12">
@@ -216,60 +279,20 @@
         </div>
       </div>
 
-      <!-- Report Info -->
-      <div class="fade-in glass rounded-3xl p-6 sm:p-8">
+      <!-- Report Info (slim) -->
+      <a href="report.html" class="fade-in glass rounded-3xl p-6 sm:p-8 block group hover:shadow-xl hover:shadow-purple-100 transition-all">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-xl">📝</div>
-          <h3 class="font-bold text-lg text-gray-800">最終レポート課題</h3>
+          <h3 class="font-bold text-lg text-gray-800 group-hover:text-purple-600 transition-colors">最終レポート課題</h3>
         </div>
         <div class="text-sm text-gray-600 space-y-3">
-          <p class="bg-pink-50 text-pink-700 font-semibold px-3 py-2 rounded-xl inline-block">
-            CLEに添付ファイル（PDF）にて提出｜春学期：6月25日（木）／夏学期：8月11日（火）
+          <p class="bg-pink-50 text-pink-700 font-semibold px-3 py-2 rounded-xl inline-block text-xs">
+            春学期：6月25日（木）／夏学期：8月11日（火）
           </p>
-
-          <div class="bg-white/50 rounded-2xl p-4 space-y-2">
-            <p class="font-semibold text-gray-800">提出形式</p>
-            <ul class="list-disc list-inside space-y-1 text-xs text-gray-600">
-              <li>冒頭に「人文学と対話 ○学期 最終レポート 学籍番号 氏名」と記載</li>
-              <li>（1）と（2）を一つのPDFファイルにまとめる</li>
-              <li>各論述1500字以上2000字以内、文字数を各論述の最後に記載</li>
-            </ul>
-          </div>
-
-          <details class="bg-white/50 rounded-2xl p-4 cursor-pointer">
-            <summary class="font-semibold text-gray-800">（1）「対話」と「協働の探究」について</summary>
-            <div class="mt-3 space-y-2 text-xs text-gray-600">
-              <p>対話と協働の探究という考え方・方法について理解したことと、クラスのメンバーとの対話・協働の探究の経験を総合して、学んだこと・考えたことを述べてください。</p>
-              <p class="text-rose-600 font-semibold">※ 生成型AIは使用できません</p>
-              <p class="font-semibold text-gray-700 mt-2">主要文献：</p>
-              <ul class="list-disc list-inside space-y-1">
-                <li>授業の配布スライドや第2回・第3回の事前学習動画の内容</li>
-                <li>高橋のオンライン連載「<a href="https://jnapcdc.com/LA/takahashi/" target="_blank" class="text-purple-600 hover:underline">なかなか会えないときだから考える、コロナ時代の対話とケア</a>」session1〜6</li>
-              </ul>
-              <p class="font-semibold text-gray-700 mt-2">参考文献：</p>
-              <ul class="list-disc list-inside space-y-1">
-                <li>D.ボーム『ダイアローグ―対立から共生へ、議論から対話へ』英知出版, 2007年</li>
-                <li>安斎勇樹・塩瀬隆之『問いのデザイン』学芸出版社, 2020年（PartⅠ1章〜PartⅡ2章）</li>
-                <li>高橋綾・ほんまなほ『こどものてつがく ケアと幸せのための対話』大阪大学出版会, 2018年</li>
-              </ul>
-            </div>
-          </details>
-
-          <details class="bg-white/50 rounded-2xl p-4 cursor-pointer">
-            <summary class="font-semibold text-gray-800">（2）現代における人文学研究の課題について</summary>
-            <div class="mt-3 space-y-2 text-xs text-gray-600">
-              <p>第5回〜第8回のテーマから最も関心がある回を選び、そのテーマに関連する〈問い〉を立て、考えを述べてください。論述の初めに「第○回：問い〜〜〜」と記載。</p>
-              <p class="text-amber-600 font-semibold">※ 生成型AIは使用可（使用箇所と方法を明記。使い方も評価対象）</p>
-              <ul class="list-disc list-inside space-y-1 mt-2">
-                <li>〈問い〉の基準は授業で紹介した対話と探究のための〈問い〉と同じ</li>
-                <li>第6・7回：事例の是非だけでなく、人文学研究（者）にとっての課題も考察</li>
-                <li>第8回：ハウツーではなく、自分や他の人の考えを論述する問いに</li>
-                <li>事前学習動画・スライド・グループ討議の内容も踏まえて作成</li>
-              </ul>
-            </div>
-          </details>
+          <p class="text-xs text-gray-500">CLEに添付ファイル（PDF）にて提出</p>
+          <p class="text-purple-600 font-semibold text-xs group-hover:underline">詳細をみる →</p>
         </div>
-      </div>
+      </a>
     </div>
   </section>
 
@@ -281,139 +304,99 @@
     </div>
 
     <div class="grid sm:grid-cols-2 gap-5 stagger">
-      <!-- Session 1 -->
       <a href="sessions/1.html" class="fade-in session-card glass rounded-3xl p-6 block group">
         <div class="flex items-start gap-4">
           <div class="number-badge">1</div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="pill bg-emerald-100 text-emerald-700">導入</span>
-            </div>
+            <div class="flex items-center gap-2 mb-2"><span class="pill bg-emerald-100 text-emerald-700">導入</span></div>
             <h3 class="font-bold text-gray-800 mb-1 group-hover:text-purple-600 transition-colors">イントロダクション＋対話とは何をすることか？</h3>
             <p class="text-sm text-gray-500">講師紹介・対話型ワーク・コミュニティをひらく</p>
           </div>
-          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
+          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </div>
       </a>
 
-      <!-- Session 2 -->
       <a href="sessions/2.html" class="fade-in session-card glass rounded-3xl p-6 block group">
         <div class="flex items-start gap-4">
           <div class="number-badge">2</div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="pill bg-blue-100 text-blue-700">質問をする</span>
-            </div>
+            <div class="flex items-center gap-2 mb-2"><span class="pill bg-blue-100 text-blue-700">質問をする</span></div>
             <h3 class="font-bold text-gray-800 mb-1 group-hover:text-purple-600 transition-colors">質問を通じて自他の考えを理解する</h3>
             <p class="text-sm text-gray-500">質問の技法・ペアワーク・他己紹介</p>
           </div>
-          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
+          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </div>
       </a>
 
-      <!-- Session 3 -->
       <a href="sessions/3.html" class="fade-in session-card glass rounded-3xl p-6 block group">
         <div class="flex items-start gap-4">
           <div class="number-badge">3</div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="pill bg-violet-100 text-violet-700">問い</span>
-            </div>
+            <div class="flex items-center gap-2 mb-2"><span class="pill bg-violet-100 text-violet-700">問い</span></div>
             <h3 class="font-bold text-gray-800 mb-1 group-hover:text-purple-600 transition-colors">協働の探究のための〈問い〉を立て、共有する</h3>
             <p class="text-sm text-gray-500">Inquiry Question・グループワーク</p>
           </div>
-          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
+          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </div>
       </a>
 
-      <!-- Session 4 -->
       <a href="sessions/4.html" class="fade-in session-card glass rounded-3xl p-6 block group">
         <div class="flex items-start gap-4">
           <div class="number-badge">4</div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="pill bg-orange-100 text-orange-700">聴く</span>
-            </div>
+            <div class="flex items-center gap-2 mb-2"><span class="pill bg-orange-100 text-orange-700">聴く</span></div>
             <h3 class="font-bold text-gray-800 mb-1 group-hover:text-purple-600 transition-colors">「人文学は役に立つのか」：現代における人文学の課題</h3>
             <p class="text-sm text-gray-500">言いっぱなし聞きっぱなしの対話</p>
           </div>
-          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
+          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </div>
       </a>
 
-      <!-- Session 5 -->
       <a href="sessions/5.html" class="fade-in session-card glass rounded-3xl p-6 block group">
         <div class="flex items-start gap-4">
           <div class="number-badge">5</div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="pill bg-cyan-100 text-cyan-700">テクノロジー</span>
-            </div>
+            <div class="flex items-center gap-2 mb-2"><span class="pill bg-cyan-100 text-cyan-700">テクノロジー</span></div>
             <h3 class="font-bold text-gray-800 mb-1 group-hover:text-purple-600 transition-colors">人文学とデジタル技術</h3>
             <p class="text-sm text-gray-500">問いのシェア・明確化・協働探究</p>
           </div>
-          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
+          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </div>
       </a>
 
-      <!-- Session 6 -->
       <a href="sessions/6.html" class="fade-in session-card glass rounded-3xl p-6 block group">
         <div class="flex items-start gap-4">
           <div class="number-badge">6</div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="pill bg-rose-100 text-rose-700">倫理</span>
-            </div>
+            <div class="flex items-center gap-2 mb-2"><span class="pill bg-rose-100 text-rose-700">倫理</span></div>
             <h3 class="font-bold text-gray-800 mb-1 group-hover:text-purple-600 transition-colors">人文学と倫理</h3>
             <p class="text-sm text-gray-500">研究倫理の事例・ディベート形式の対話</p>
           </div>
-          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
+          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </div>
       </a>
 
-      <!-- Session 7 -->
       <a href="sessions/7.html" class="fade-in session-card glass rounded-3xl p-6 block group">
         <div class="flex items-start gap-4">
           <div class="number-badge">7</div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="pill bg-teal-100 text-teal-700">共生</span>
-            </div>
+            <div class="flex items-center gap-2 mb-2"><span class="pill bg-teal-100 text-teal-700">共生</span></div>
             <h3 class="font-bold text-gray-800 mb-1 group-hover:text-purple-600 transition-colors">人文学と現代の共生や人権の課題</h3>
             <p class="text-sm text-gray-500">事例ディベート・多角的な対話と探究</p>
           </div>
-          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
+          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </div>
       </a>
 
-      <!-- Session 8 -->
       <a href="sessions/8.html" class="fade-in session-card glass rounded-3xl p-6 block group">
         <div class="flex items-start gap-4">
           <div class="number-badge">8</div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="pill bg-indigo-100 text-indigo-700">キャリア</span>
-            </div>
+            <div class="flex items-center gap-2 mb-2"><span class="pill bg-indigo-100 text-indigo-700">キャリア</span></div>
             <h3 class="font-bold text-gray-800 mb-1 group-hover:text-purple-600 transition-colors">人文学を社会で活かす・大学院生のキャリア形成</h3>
             <p class="text-sm text-gray-500">修了生インタビュー・キャリアについての対話</p>
           </div>
-          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
+          <svg class="w-5 h-5 text-gray-300 group-hover:text-purple-500 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </div>
       </a>
     </div>
@@ -455,147 +438,25 @@
   <footer class="text-center py-12 px-4">
     <div class="fade-in">
       <p class="text-sm text-gray-400">大阪大学大学院 人文学研究科</p>
-      <p class="text-xs text-gray-300 mt-1">人文学基礎（人文学と対話）2026春</p>
+      <p class="text-xs text-gray-300 mt-1">人文学基礎（人文学と対話）2026</p>
     </div>
   </footer>
 
-  <!-- Scroll Animation Script -->
   <script>
+    // Splash screen
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('splash').classList.add('done');
+      }, 1500);
+    });
+
+    // Scroll animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  </script>
-
-  <!-- Three.js Scene -->
-  <script>
-  (function() {
-    const canvas = document.getElementById('three-canvas');
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.z = 20;
-
-    // Mouse tracking
-    const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
-    document.addEventListener('mousemove', (e) => {
-      mouse.tx = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouse.ty = -(e.clientY / window.innerHeight - 0.5) * 2;
-    });
-
-    // Colors matching the pastel gradient theme
-    const colors = [
-      new THREE.Color('#c084fc'), // purple
-      new THREE.Color('#f9a8d4'), // pink
-      new THREE.Color('#67e8f9'), // cyan
-      new THREE.Color('#fbbf24'), // amber
-      new THREE.Color('#86efac'), // green
-      new THREE.Color('#a5b4fc'), // indigo
-      new THREE.Color('#fca5a5'), // red
-    ];
-
-    // Create floating geometries
-    const geometries = [
-      new THREE.TorusKnotGeometry(1, 0.3, 100, 16),
-      new THREE.IcosahedronGeometry(1, 0),
-      new THREE.OctahedronGeometry(1, 0),
-      new THREE.TorusGeometry(1, 0.4, 16, 32),
-      new THREE.DodecahedronGeometry(1, 0),
-      new THREE.TetrahedronGeometry(1, 0),
-      new THREE.ConeGeometry(0.8, 1.6, 6),
-    ];
-
-    const meshes = [];
-    geometries.forEach((geo, i) => {
-      const mat = new THREE.MeshPhysicalMaterial({
-        color: colors[i % colors.length],
-        transparent: true,
-        opacity: 0.15,
-        wireframe: Math.random() > 0.5,
-        roughness: 0.1,
-        metalness: 0.3,
-        side: THREE.DoubleSide,
-      });
-      const mesh = new THREE.Mesh(geo, mat);
-
-      // Distribute across the viewport
-      const angle = (i / geometries.length) * Math.PI * 2;
-      const radius = 6 + Math.random() * 6;
-      mesh.position.set(
-        Math.cos(angle) * radius,
-        Math.sin(angle) * radius * 0.6,
-        -5 + Math.random() * 10
-      );
-      mesh.scale.setScalar(0.8 + Math.random() * 1.2);
-
-      mesh.userData = {
-        baseX: mesh.position.x,
-        baseY: mesh.position.y,
-        baseZ: mesh.position.z,
-        rotSpeed: 0.002 + Math.random() * 0.008,
-        floatSpeed: 0.3 + Math.random() * 0.7,
-        floatAmp: 0.3 + Math.random() * 0.5,
-        phase: Math.random() * Math.PI * 2,
-      };
-
-      scene.add(mesh);
-      meshes.push(mesh);
-    });
-
-    // Soft lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-    scene.add(ambientLight);
-    const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
-    dirLight.position.set(5, 5, 5);
-    scene.add(dirLight);
-    const pointLight = new THREE.PointLight('#c084fc', 0.5, 50);
-    pointLight.position.set(-5, 3, 5);
-    scene.add(pointLight);
-
-    // Animation loop
-    let time = 0;
-    function animate() {
-      requestAnimationFrame(animate);
-      time += 0.01;
-
-      // Smooth mouse follow
-      mouse.x += (mouse.tx - mouse.x) * 0.05;
-      mouse.y += (mouse.ty - mouse.y) * 0.05;
-
-      meshes.forEach((mesh) => {
-        const d = mesh.userData;
-        // Gentle rotation
-        mesh.rotation.x += d.rotSpeed;
-        mesh.rotation.y += d.rotSpeed * 0.7;
-
-        // Floating motion
-        mesh.position.x = d.baseX + Math.sin(time * d.floatSpeed + d.phase) * d.floatAmp + mouse.x * 1.5;
-        mesh.position.y = d.baseY + Math.cos(time * d.floatSpeed + d.phase) * d.floatAmp + mouse.y * 1.2;
-      });
-
-      camera.position.x += (mouse.x * 2 - camera.position.x) * 0.02;
-      camera.position.y += (mouse.y * 1.5 - camera.position.y) * 0.02;
-      camera.lookAt(0, 0, 0);
-
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    // Resize handler
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  })();
   </script>
 </body>
 </html>
