@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第3回 協働の探究のための〈問い〉を立て、共有する | 人文学と対話（2026春）</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', '"Zen Kaku Gothic New"', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { font-family: 'Noto Sans JP', 'Zen Kaku Gothic New', sans-serif; }
+
+    .gradient-bg {
+      background: linear-gradient(-45deg, #fef3c7, #fce7f3, #e0e7ff, #ccfbf1, #fef3c7);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #7c3aed, #ec4899, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger > *:nth-child(1) { transition-delay: 0.05s; }
+    .stagger > *:nth-child(2) { transition-delay: 0.1s; }
+    .stagger > *:nth-child(3) { transition-delay: 0.15s; }
+    .stagger > *:nth-child(4) { transition-delay: 0.2s; }
+    .stagger > *:nth-child(5) { transition-delay: 0.25s; }
+    .stagger > *:nth-child(6) { transition-delay: 0.3s; }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: blobFloat 8s ease-in-out infinite;
+    }
+    @keyframes blobFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(124, 58, 237, 0.3); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(124, 58, 237, 0.5); }
+
+    .pill {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 1.25rem;
+      top: 2.5rem;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #8b5cf6, #c4b5fd);
+    }
+
+    .timeline-dot {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="gradient-bg min-h-screen relative overflow-x-hidden">
+
+  <!-- Floating decorative blobs -->
+  <div class="blob w-96 h-96 bg-violet-300 top-20 -left-48 fixed" style="animation-delay: 0s;"></div>
+  <div class="blob w-80 h-80 bg-purple-200 top-1/2 -right-40 fixed" style="animation-delay: 2s;"></div>
+  <div class="blob w-72 h-72 bg-fuchsia-200 bottom-20 left-1/3 fixed" style="animation-delay: 4s;"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass-strong">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="../" class="flex items-center gap-2 text-gray-800 font-bold text-sm sm:text-base hover:text-violet-600 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span class="text-xl">💬</span>
+        <span>人文学と対話</span>
+      </a>
+      <div class="flex items-center gap-3 sm:gap-6 text-sm font-medium text-gray-600">
+        <a href="2.html" class="hover:text-violet-600 transition-colors hidden sm:block">← 前回</a>
+        <a href="4.html" class="bg-gradient-to-r from-violet-500 to-purple-500 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-semibold hover:shadow-lg hover:shadow-violet-200 transition-all">
+          次の授業 →
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative pt-32 pb-16 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="fade-in">
+        <span class="pill bg-violet-100 text-violet-700 mb-4 inline-block">探究</span>
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <span class="text-6xl sm:text-7xl font-black text-violet-200">03</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-4">
+          <span class="text-gray-800">協働の探究のための</span><br>
+          <span class="gradient-text">〈問い Inquiry Question〉を立て、共有する</span>
+        </h1>
+        <p class="text-base sm:text-lg text-gray-500 font-light">第3回　人文学と対話（2026春）</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Objective -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
+    <div class="fade-in glass-strong rounded-3xl p-6 sm:p-8 border-l-4 border-violet-400">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center text-xl">🎯</div>
+        <h2 class="font-bold text-lg text-gray-800">この授業の目標</h2>
+      </div>
+      <p class="text-gray-700 leading-relaxed">
+        グループで〈問い〉を作り、共有する
+      </p>
+    </div>
+  </section>
+
+  <!-- Session Flow Timeline -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
+    <div class="fade-in text-center mb-8">
+      <h2 class="text-2xl sm:text-3xl font-black text-gray-800 mb-2">授業の流れ</h2>
+      <p class="text-gray-500 text-sm">セッションのタイムライン</p>
+    </div>
+
+    <div class="space-y-0 stagger">
+      <!-- Step 1 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-violet-500 text-white absolute left-0 top-0">1</div>
+        <div class="glass rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="pill bg-amber-100 text-amber-600 text-xs">ミニワーク</span>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">はじめのミニワーク「発声練習」</h3>
+          <p class="text-xs text-gray-500 mt-1">質問：「あなたのおすすめの動画コンテンツは何ですか？」</p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-violet-500 text-white absolute left-0 top-0">2</div>
+        <div class="glass rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="pill bg-red-100 text-red-600 text-xs">動画</span>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">講義動画の視聴</h3>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-violet-400 text-white absolute left-0 top-0">3</div>
+        <div class="glass rounded-2xl p-5">
+          <h3 class="font-bold text-gray-800 text-sm">質問タイム・模範演技</h3>
+          <p class="text-xs text-gray-500 mt-1">ティーチングスタッフ3人の模範演技を見る（3分程度）</p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-purple-500 text-white absolute left-0 top-0">4</div>
+        <div class="glass rounded-2xl p-5 border-l-4 border-purple-400">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="pill bg-purple-100 text-purple-600 text-xs">対話ワーク</span>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">対話ワーク（15分 x 2ターン）</h3>
+          <p class="text-xs text-gray-500 mt-1">グループワーク：問いを共有し、15分ずつ議論。最終的にグループの問いを選ぶ</p>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="fade-in relative pl-14 pb-2">
+        <div class="timeline-dot bg-violet-600 text-white absolute left-0 top-0">5</div>
+        <div class="glass rounded-2xl p-5">
+          <h3 class="font-bold text-gray-800 text-sm">ふりかえりフォームの記入</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reflection Form CTA -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
+    <div class="fade-in text-center">
+      <a href="https://forms.gle/vKyBMteLNNMEAbog6" target="_blank"
+         class="inline-flex items-center gap-3 bg-gradient-to-r from-violet-500 to-purple-500 text-white px-8 py-5 rounded-2xl font-bold text-lg hover:shadow-xl hover:shadow-violet-200 transition-all hover:-translate-y-1">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        ふりかえりフォームを提出する
+      </a>
+    </div>
+  </section>
+
+  <!-- Next Session Prep -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
+    <div class="fade-in glass-strong rounded-3xl p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-xl">📚</div>
+        <h2 class="font-bold text-lg text-gray-800">次回の準備</h2>
+      </div>
+      <p class="text-sm text-gray-600 leading-relaxed mb-4">
+        事前学習動画を視聴し、「人文学は役に立つのか」についての問いを準備してきてください。
+      </p>
+      <div class="space-y-3">
+        <a href="https://www.youtube.com/watch?v=IYqg2F4F3Dc" target="_blank"
+           class="flex items-center gap-3 p-4 rounded-2xl bg-white/50 hover:bg-white/80 transition-all group">
+          <div class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center text-white text-sm flex-shrink-0">▶</div>
+          <div>
+            <p class="font-semibold text-gray-800 group-hover:text-red-600 transition-colors text-sm">事前学習動画 1</p>
+            <p class="text-xs text-gray-500">YouTube</p>
+          </div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=1mmnehg1sp4" target="_blank"
+           class="flex items-center gap-3 p-4 rounded-2xl bg-white/50 hover:bg-white/80 transition-all group">
+          <div class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center text-white text-sm flex-shrink-0">▶</div>
+          <div>
+            <p class="font-semibold text-gray-800 group-hover:text-red-600 transition-colors text-sm">事前学習動画 2</p>
+            <p class="text-xs text-gray-500">YouTube</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Session Link -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-20">
+    <a href="4.html" class="fade-in block glass rounded-3xl p-6 sm:p-8 hover:shadow-xl hover:shadow-orange-100 transition-all hover:-translate-y-1 group">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-xs text-gray-400 mb-1">次の授業</p>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="pill bg-orange-100 text-orange-700">議論</span>
+          </div>
+          <h3 class="font-bold text-gray-800 group-hover:text-orange-600 transition-colors">第4回　「人文学は役に立つのか」：現代における人文学の課題</h3>
+        </div>
+        <svg class="w-6 h-6 text-gray-300 group-hover:text-orange-500 transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </div>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-12 px-4">
+    <div class="fade-in">
+      <p class="text-sm text-gray-400">大阪大学大学院 人文学研究科</p>
+      <p class="text-xs text-gray-300 mt-1">人文学基礎（人文学と対話）2026春</p>
+    </div>
+  </footer>
+
+  <!-- Scroll Animation Script -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

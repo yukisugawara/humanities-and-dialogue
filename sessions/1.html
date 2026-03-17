@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第1回 イントロダクション＋対話とは何をすることか？ | 人文学と対話（2026春）</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', '"Zen Kaku Gothic New"', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { font-family: 'Noto Sans JP', 'Zen Kaku Gothic New', sans-serif; }
+
+    .gradient-bg {
+      background: linear-gradient(-45deg, #fef3c7, #fce7f3, #e0e7ff, #ccfbf1, #fef3c7);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #7c3aed, #ec4899, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger > *:nth-child(1) { transition-delay: 0.05s; }
+    .stagger > *:nth-child(2) { transition-delay: 0.1s; }
+    .stagger > *:nth-child(3) { transition-delay: 0.15s; }
+    .stagger > *:nth-child(4) { transition-delay: 0.2s; }
+    .stagger > *:nth-child(5) { transition-delay: 0.25s; }
+    .stagger > *:nth-child(6) { transition-delay: 0.3s; }
+    .stagger > *:nth-child(7) { transition-delay: 0.35s; }
+    .stagger > *:nth-child(8) { transition-delay: 0.4s; }
+    .stagger > *:nth-child(9) { transition-delay: 0.45s; }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: blobFloat 8s ease-in-out infinite;
+    }
+    @keyframes blobFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(124, 58, 237, 0.3); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(124, 58, 237, 0.5); }
+
+    .pill {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 1.25rem;
+      top: 2.5rem;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #10b981, #6ee7b7);
+    }
+
+    .timeline-dot {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="gradient-bg min-h-screen relative overflow-x-hidden">
+
+  <!-- Floating decorative blobs -->
+  <div class="blob w-96 h-96 bg-emerald-300 top-20 -left-48 fixed" style="animation-delay: 0s;"></div>
+  <div class="blob w-80 h-80 bg-teal-200 top-1/2 -right-40 fixed" style="animation-delay: 2s;"></div>
+  <div class="blob w-72 h-72 bg-green-200 bottom-20 left-1/3 fixed" style="animation-delay: 4s;"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass-strong">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="../" class="flex items-center gap-2 text-gray-800 font-bold text-sm sm:text-base hover:text-emerald-600 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span class="text-xl">💬</span>
+        <span>人文学と対話</span>
+      </a>
+      <div class="flex items-center gap-3 sm:gap-6 text-sm font-medium text-gray-600">
+        <a href="../#sessions" class="hover:text-emerald-600 transition-colors hidden sm:block">授業一覧</a>
+        <a href="2.html" class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-semibold hover:shadow-lg hover:shadow-emerald-200 transition-all">
+          次の授業 →
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative pt-32 pb-16 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="fade-in">
+        <span class="pill bg-emerald-100 text-emerald-700 mb-4 inline-block">導入</span>
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <span class="text-6xl sm:text-7xl font-black text-emerald-200">01</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-4">
+          <span class="text-gray-800">イントロダクション＋</span><br>
+          <span class="gradient-text">対話とは何をすることか？</span>
+        </h1>
+        <p class="text-base sm:text-lg text-gray-500 font-light">第1回　人文学と対話（2026春）</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Staff & Objective -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
+    <div class="fade-in glass-strong rounded-3xl p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center text-xl">👥</div>
+        <h2 class="font-bold text-lg text-gray-800">ティーチングスタッフ</h2>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <span class="pill bg-emerald-100 text-emerald-700">菅原（メイン講師）</span>
+        <span class="pill bg-teal-100 text-teal-700">高橋（サブ講師）</span>
+        <span class="pill bg-gray-100 text-gray-600">TA: 鳥居口</span>
+        <span class="pill bg-gray-100 text-gray-600">TA: 金歳</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dialogue Work Callout -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
+    <div class="fade-in glass rounded-3xl p-6 sm:p-8 border-l-4 border-emerald-400">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center text-xl">🗣️</div>
+        <h2 class="font-bold text-lg text-gray-800">対話型ワーク：自分について他の人に知ってもらおう</h2>
+      </div>
+      <p class="text-sm text-gray-600 leading-relaxed">
+        コミュニティをひらくためのワークです。自己紹介として、以下のことを共有します。
+      </p>
+      <ul class="mt-3 space-y-2 text-sm text-gray-600">
+        <li class="flex items-start gap-2">
+          <span class="w-5 h-5 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-xs flex-shrink-0 mt-0.5">1</span>
+          名前やニックネーム
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="w-5 h-5 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-xs flex-shrink-0 mt-0.5">2</span>
+          自分がどう呼ばれたいか
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="w-5 h-5 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-xs flex-shrink-0 mt-0.5">3</span>
+          あなたの「コミュニケーションの取扱説明書」（会話で心地よいと感じること）
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Session Flow Timeline -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
+    <div class="fade-in text-center mb-8">
+      <h2 class="text-2xl sm:text-3xl font-black text-gray-800 mb-2">授業の流れ</h2>
+      <p class="text-gray-500 text-sm">セッションのタイムライン</p>
+    </div>
+
+    <div class="space-y-0 stagger">
+      <!-- Step 1 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-emerald-500 text-white absolute left-0 top-0">1</div>
+        <div class="glass rounded-2xl p-5">
+          <h3 class="font-bold text-gray-800 text-sm">講師からの挨拶・ティーチングスタッフの紹介</h3>
+          <p class="text-xs text-gray-500 mt-1">授業の講師とTA陣の紹介</p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-emerald-500 text-white absolute left-0 top-0">2</div>
+        <div class="glass rounded-2xl p-5">
+          <h3 class="font-bold text-gray-800 text-sm">出席確認</h3>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-emerald-500 text-white absolute left-0 top-0">3</div>
+        <div class="glass rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="pill bg-red-100 text-red-600 text-xs">動画</span>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">講義動画（1）の視聴</h3>
+          <p class="text-xs text-gray-500 mt-1">授業についてのイントロダクション</p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-emerald-400 text-white absolute left-0 top-0">4</div>
+        <div class="glass rounded-2xl p-5">
+          <h3 class="font-bold text-gray-800 text-sm">質問タイム</h3>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-emerald-500 text-white absolute left-0 top-0">5</div>
+        <div class="glass rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="pill bg-red-100 text-red-600 text-xs">動画</span>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">講義動画（2）の視聴</h3>
+          <p class="text-xs text-gray-500 mt-1">〈対話 Dialogue〉とはなにをすることかについて</p>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-emerald-400 text-white absolute left-0 top-0">6</div>
+        <div class="glass rounded-2xl p-5">
+          <h3 class="font-bold text-gray-800 text-sm">質問タイム</h3>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-emerald-500 text-white absolute left-0 top-0">7</div>
+        <div class="glass rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="pill bg-red-100 text-red-600 text-xs">動画</span>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">講義動画（3）の視聴</h3>
+          <p class="text-xs text-gray-500 mt-1">対話型ワークについての紹介</p>
+        </div>
+      </div>
+
+      <!-- Step 8 -->
+      <div class="fade-in relative pl-14 pb-8">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot bg-teal-500 text-white absolute left-0 top-0">8</div>
+        <div class="glass rounded-2xl p-5 border-l-4 border-teal-400">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="pill bg-teal-100 text-teal-600 text-xs">対話ワーク</span>
+          </div>
+          <h3 class="font-bold text-gray-800 text-sm">対話型ワーク：自分について他の人に知ってもらおう</h3>
+          <p class="text-xs text-gray-500 mt-1">コミュニティをひらく</p>
+        </div>
+      </div>
+
+      <!-- Step 9 -->
+      <div class="fade-in relative pl-14 pb-2">
+        <div class="timeline-dot bg-emerald-600 text-white absolute left-0 top-0">9</div>
+        <div class="glass rounded-2xl p-5">
+          <h3 class="font-bold text-gray-800 text-sm">ふりかえりフォームの提出と次回課題について確認</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reflection Form CTA -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
+    <div class="fade-in text-center">
+      <a href="https://forms.gle/1GbxJgCfDw8egiwj9" target="_blank"
+         class="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-5 rounded-2xl font-bold text-lg hover:shadow-xl hover:shadow-emerald-200 transition-all hover:-translate-y-1">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        ふりかえりフォームを提出する
+      </a>
+    </div>
+  </section>
+
+  <!-- Next Session Prep -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
+    <div class="fade-in glass-strong rounded-3xl p-6 sm:p-8">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-xl">📚</div>
+        <h2 class="font-bold text-lg text-gray-800">次回の準備</h2>
+      </div>
+      <p class="text-sm text-gray-600 leading-relaxed">
+        第2回の事前学習動画を視聴してきてください。
+      </p>
+    </div>
+  </section>
+
+  <!-- Next Session Link -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-20">
+    <a href="2.html" class="fade-in block glass rounded-3xl p-6 sm:p-8 hover:shadow-xl hover:shadow-blue-100 transition-all hover:-translate-y-1 group">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-xs text-gray-400 mb-1">次の授業</p>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="pill bg-blue-100 text-blue-700">スキル</span>
+          </div>
+          <h3 class="font-bold text-gray-800 group-hover:text-blue-600 transition-colors">第2回　質問を通じて自他の考えを理解する</h3>
+        </div>
+        <svg class="w-6 h-6 text-gray-300 group-hover:text-blue-500 transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </div>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-12 px-4">
+    <div class="fade-in">
+      <p class="text-sm text-gray-400">大阪大学大学院 人文学研究科</p>
+      <p class="text-xs text-gray-300 mt-1">人文学基礎（人文学と対話）2026春</p>
+    </div>
+  </footer>
+
+  <!-- Scroll Animation Script -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
