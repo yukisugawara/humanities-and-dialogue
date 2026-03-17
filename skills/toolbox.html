@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>質問の型（哲学者の道具箱） | 人文学と対話（2026）</title>
+  <script src="../auth.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['"Noto Sans JP"', '"Zen Kaku Gothic New"', 'sans-serif'] } } } }
+  </script>
+  <style>
+    * { font-family: 'Noto Sans JP', 'Zen Kaku Gothic New', sans-serif; }
+    .gradient-bg {
+      background: linear-gradient(-45deg, #fef3c7, #fce7f3, #e0e7ff, #ccfbf1, #fef3c7);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .glass { background: rgba(255,255,255,0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.8); }
+    .glass-strong { background: rgba(255,255,255,0.85); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.9); }
+    .gradient-text { background: linear-gradient(135deg, #7c3aed, #ec4899, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: blobFloat 8s ease-in-out infinite; }
+    @keyframes blobFloat { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-30px) scale(1.1); } 66% { transform: translate(-20px,20px) scale(0.9); } }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4,0,0.2,1); }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .tool-card { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .tool-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1); }
+    html { scroll-behavior: smooth; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 4px; }
+  </style>
+</head>
+<body class="gradient-bg min-h-screen relative overflow-x-hidden">
+  <div class="blob w-96 h-96 bg-blue-300 top-20 -left-48 fixed" style="animation-delay: 0s;"></div>
+  <div class="blob w-80 h-80 bg-purple-300 top-1/2 -right-40 fixed" style="animation-delay: 2s;"></div>
+  <div class="blob w-72 h-72 bg-pink-200 bottom-20 left-1/3 fixed" style="animation-delay: 4s;"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass-strong">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="../" class="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors text-sm font-medium">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        <span data-i18n="tb_nav_back">トップに戻る</span>
+      </a>
+      <button id="lang-toggle" onclick="toggleLang()" class="px-3 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all">EN</button>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-20">
+    <!-- Header -->
+    <div class="text-center mb-10 fade-in">
+      <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">🧰</div>
+      <h1 class="text-3xl sm:text-4xl font-black text-gray-800 mb-2" data-i18n="tb_title">質問の型（哲学者の道具箱）</h1>
+      <p class="text-gray-500 text-sm" data-i18n="tb_subtitle">Good Thinker's Toolkit</p>
+    </div>
+
+    <!-- Introduction -->
+    <div class="fade-in glass-strong rounded-3xl p-6 sm:p-8 mb-8">
+      <h2 class="font-bold text-lg text-gray-800 mb-4" data-i18n="tb_intro_title">対話のなかで使ってみよう 哲学者の道具箱</h2>
+      <div class="bg-amber-50 text-amber-800 font-semibold px-4 py-2 rounded-xl text-sm mb-4 inline-block" data-i18n="tb_print_note">
+        ※印刷して授業・対話中見えるところに置くことを推奨します
+      </div>
+      <div class="text-sm text-gray-600 leading-relaxed space-y-4">
+        <p data-i18n="tb_intro_p1">対話の中では積極的に相手に質問することが大切です。ただし、対話における「質問」は相手についての事実や情報を知るためではなく、相手の発言をていねいに理解することや、その根本にある相手の「考え」（価値や前提、信念）を理解するためになされます。</p>
+        <p data-i18n="tb_intro_p2">例えば、第2回のワークの課題は、相手の研究テーマについて質問してみよう、ですが、その研究テーマについての一般的・学術的な情報を得るためではなく：</p>
+        <ul class="space-y-2 ml-1">
+          <li class="flex items-start gap-2">
+            <span class="text-purple-400 mt-1 flex-shrink-0">●</span>
+            <span data-i18n="tb_intro_q1">その人はなぜそのことを研究しようと思ったのか？</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-purple-400 mt-1 flex-shrink-0">●</span>
+            <span data-i18n="tb_intro_q2">いつごろからそのことに興味をもったのか？ きっかけは？</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-purple-400 mt-1 flex-shrink-0">●</span>
+            <span data-i18n="tb_intro_q3">その根本にあるその人の問題関心や考えたいことは何か？</span>
+          </li>
+        </ul>
+        <p data-i18n="tb_intro_p3">という、相手や研究テーマの根本にあるその人の関心や考えを（共感的に）理解するために質問をしてください。その時に役に立つのは、以下のような相手の「考え」にフォーカスを置いた質問です。第2回目だけでなく、今後のすべての対話型ワークにおいて、このような質問ができるように心がけてみてください。</p>
+      </div>
+    </div>
+
+    <!-- Tool Cards -->
+    <div class="space-y-6">
+
+      <!-- R: Reason -->
+      <div class="fade-in tool-card glass rounded-3xl p-6 sm:p-8 border-l-4 border-blue-400">
+        <div class="flex flex-col sm:flex-row gap-6 items-center">
+          <div class="w-full sm:w-48 flex-shrink-0">
+            <img src="../image/R.png" alt="R - Reason" class="w-full rounded-2xl shadow-lg">
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center text-white text-lg font-black">R</span>
+              <div>
+                <h3 class="font-bold text-lg text-gray-800" data-i18n="tb_r_title">Reason（理由）</h3>
+                <p class="text-sm text-blue-600 font-semibold" data-i18n="tb_r_question">「どうして？ その理由は……」</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600" data-i18n="tb_r_desc">相手がそう考える理由や根拠を尋ねます。「なぜそう思うのですか？」「どうしてそう考えたのですか？」</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- W: What do you mean -->
+      <div class="fade-in tool-card glass rounded-3xl p-6 sm:p-8 border-l-4 border-yellow-400">
+        <div class="flex flex-col sm:flex-row gap-6 items-center">
+          <div class="w-full sm:w-48 flex-shrink-0">
+            <img src="../image/W.png" alt="W - What do you mean" class="w-full rounded-2xl shadow-lg">
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center text-white text-lg font-black">W</span>
+              <div>
+                <h3 class="font-bold text-lg text-gray-800" data-i18n="tb_w_title">What do you mean?（意味）</h3>
+                <p class="text-sm text-yellow-600 font-semibold" data-i18n="tb_w_question">「どういう意味？」</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600" data-i18n="tb_w_desc">相手の言葉の意味を明確にします。「それはどういう意味ですか？」「もう少し詳しく教えてください」</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- E: Example -->
+      <div class="fade-in tool-card glass rounded-3xl p-6 sm:p-8 border-l-4 border-gray-400">
+        <div class="flex flex-col sm:flex-row gap-6 items-center">
+          <div class="w-full sm:w-48 flex-shrink-0">
+            <img src="../image/E.png" alt="E - Example" class="w-full rounded-2xl shadow-lg">
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-10 h-10 bg-gray-500 rounded-xl flex items-center justify-center text-white text-lg font-black">E</span>
+              <div>
+                <h3 class="font-bold text-lg text-gray-800" data-i18n="tb_e_title">Example（例）</h3>
+                <p class="text-sm text-gray-600 font-semibold" data-i18n="tb_e_question">「例えば……」</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600" data-i18n="tb_e_desc">具体的な例を求めます。「例えばどういうことですか？」「具体的にはどんな場面ですか？」</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- T: Truth -->
+      <div class="fade-in tool-card glass rounded-3xl p-6 sm:p-8 border-l-4 border-emerald-400">
+        <div class="flex flex-col sm:flex-row gap-6 items-center">
+          <div class="w-full sm:w-48 flex-shrink-0">
+            <img src="../image/T.png" alt="T - Truth" class="w-full rounded-2xl shadow-lg">
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white text-lg font-black">T</span>
+              <div>
+                <h3 class="font-bold text-lg text-gray-800" data-i18n="tb_t_title">Truth（真実・事実）</h3>
+                <p class="text-sm text-emerald-600 font-semibold" data-i18n="tb_t_question">「本当にそうなんだろうか？」</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600" data-i18n="tb_t_desc">発言の真実性を問います。「それは本当にそうですか？」「確かめる方法はありますか？」</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- C: Counter example -->
+      <div class="fade-in tool-card glass rounded-3xl p-6 sm:p-8 border-l-4 border-red-400">
+        <div class="flex flex-col sm:flex-row gap-6 items-center">
+          <div class="w-full sm:w-48 flex-shrink-0">
+            <img src="../image/C.png" alt="C - Counter example" class="w-full rounded-2xl shadow-lg">
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center text-white text-lg font-black">C</span>
+              <div>
+                <h3 class="font-bold text-lg text-gray-800" data-i18n="tb_c_title">Counter example（反例）</h3>
+                <p class="text-sm text-red-600 font-semibold" data-i18n="tb_c_question">「でも……ということもあるんじゃない？」</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600" data-i18n="tb_c_desc">別の視点や反対の例を提示します。「でも、こういう場合はどうですか？」「逆のケースもありませんか？」</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- I: Inference -->
+      <div class="fade-in tool-card glass rounded-3xl p-6 sm:p-8 border-l-4 border-indigo-400">
+        <div class="flex flex-col sm:flex-row gap-6 items-center">
+          <div class="w-full sm:w-48 flex-shrink-0">
+            <img src="../image/I.png" alt="I - Inference" class="w-full rounded-2xl shadow-lg">
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center text-white text-lg font-black">I</span>
+              <div>
+                <h3 class="font-bold text-lg text-gray-800" data-i18n="tb_i_title">Inference（推論・含意）</h3>
+                <p class="text-sm text-indigo-600 font-semibold" data-i18n="tb_i_question">「もしそうなら……ということになる」</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600" data-i18n="tb_i_desc">相手の考えから導かれることを探ります。「もしそうだとしたら、〇〇ということになりますか？」</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- A: Assumption -->
+      <div class="fade-in tool-card glass rounded-3xl p-6 sm:p-8 border-l-4 border-pink-400">
+        <div class="flex flex-col sm:flex-row gap-6 items-center">
+          <div class="w-full sm:w-48 flex-shrink-0">
+            <img src="../image/A.png" alt="A - Assumption" class="w-full rounded-2xl shadow-lg">
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white text-lg font-black">A</span>
+              <div>
+                <h3 class="font-bold text-lg text-gray-800" data-i18n="tb_a_title">Assumption（前提）</h3>
+                <p class="text-sm text-pink-600 font-semibold" data-i18n="tb_a_question">「そもそも……かな？」</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600" data-i18n="tb_a_desc">相手の考えの前提を問います。「そもそも〇〇という前提がありますが、それは正しいですか？」</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Back button -->
+    <div class="text-center mt-12 fade-in">
+      <a href="../" class="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-gray-800 transition-all hover:shadow-xl">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        <span data-i18n="tb_back">トップに戻る</span>
+      </a>
+    </div>
+  </main>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+  <script>
+    const i18n_en = {
+      tb_nav_back: 'Back to Top',
+      tb_title: 'Question Types (Good Thinker\'s Toolkit)',
+      tb_subtitle: 'Good Thinker\'s Toolkit',
+      tb_intro_title: 'Use These in Dialogue: The Good Thinker\'s Toolkit',
+      tb_print_note: '* We recommend printing this and keeping it visible during class and dialogue',
+      tb_intro_p1: 'In dialogue, it is important to actively ask questions. However, "questions" in dialogue are not meant to learn facts or information about the other person, but to carefully understand their statements and the underlying "thinking" (values, assumptions, beliefs) behind them.',
+      tb_intro_p2: 'For example, the task in Session 2 is to ask questions about your partner\'s research theme \u2014 not to obtain general or academic information about the topic, but rather:',
+      tb_intro_q1: 'Why did this person decide to research this topic?',
+      tb_intro_q2: 'When did they become interested? What was the trigger?',
+      tb_intro_q3: 'What is the fundamental concern or question they want to explore?',
+      tb_intro_p3: 'Ask questions to empathetically understand the interests and thinking at the root of the person and their research theme. The following types of questions, which focus on the other person\'s "thinking," are useful for this. Try to use these types of questions not only in Session 2, but in all future dialogue workshops.',
+      tb_r_title: 'Reason',
+      tb_r_question: '"Why? The reason is..."',
+      tb_r_desc: 'Ask for the reasons or basis behind their thinking. "Why do you think so?" "What led you to that conclusion?"',
+      tb_w_title: 'What do you mean?',
+      tb_w_question: '"What do you mean by that?"',
+      tb_w_desc: 'Clarify the meaning of their words. "What do you mean by that?" "Could you explain in more detail?"',
+      tb_e_title: 'Example',
+      tb_e_question: '"For example..."',
+      tb_e_desc: 'Ask for concrete examples. "Can you give an example?" "In what kind of situation would that apply?"',
+      tb_t_title: 'Truth',
+      tb_t_question: '"Is that really true?"',
+      tb_t_desc: 'Question the truthfulness of a statement. "Is that really the case?" "How could we verify that?"',
+      tb_c_title: 'Counter example',
+      tb_c_question: '"But couldn\'t there also be...?"',
+      tb_c_desc: 'Offer alternative perspectives or counterexamples. "But what about this case?" "Couldn\'t the opposite also be true?"',
+      tb_i_title: 'Inference',
+      tb_i_question: '"If that\'s the case, then..."',
+      tb_i_desc: 'Explore what follows from their thinking. "If that were true, would it mean that...?"',
+      tb_a_title: 'Assumption',
+      tb_a_question: '"Is the premise that...?"',
+      tb_a_desc: 'Question the underlying assumptions. "Isn\'t there an assumption that... Is that correct?"',
+      tb_back: 'Back to Top',
+    };
+    let currentLang = sessionStorage.getItem('hd_lang') || 'ja';
+    const jaTexts = {};
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      jaTexts[el.getAttribute('data-i18n')] = el.innerHTML;
+    });
+    function applyLang() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (currentLang === 'en' && i18n_en[key]) el.innerHTML = i18n_en[key];
+        else if (jaTexts[key]) el.innerHTML = jaTexts[key];
+      });
+      const btn = document.getElementById('lang-toggle');
+      if (btn) btn.textContent = currentLang === 'ja' ? 'EN' : 'JP';
+    }
+    function toggleLang() {
+      currentLang = currentLang === 'ja' ? 'en' : 'ja';
+      sessionStorage.setItem('hd_lang', currentLang);
+      applyLang();
+    }
+    applyLang();
+  </script>
+</body>
+</html>
