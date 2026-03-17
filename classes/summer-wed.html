@@ -46,53 +46,54 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
       <a href="../" class="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors text-sm font-medium">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-        トップに戻る
+        <span data-i18n="summer_wed_nav_back">トップに戻る</span>
       </a>
+      <button id="lang-toggle" onclick="toggleLang()" class="px-3 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all">EN</button>
     </div>
   </nav>
 
   <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-20">
     <!-- Header -->
     <div class="text-center mb-12 fade-in">
-      <p class="text-sm font-semibold text-purple-600 tracking-widest uppercase mb-3">人文学と対話 2026</p>
-      <h1 class="text-3xl sm:text-4xl font-black mb-2">
+      <p class="text-sm font-semibold text-purple-600 tracking-widest uppercase mb-3" data-i18n="summer_wed_course_name">人文学と対話 2026</p>
+      <h1 class="text-3xl sm:text-4xl font-black mb-2" data-i18n="summer_wed_class_title">
         <span class="gradient-text">夏・水曜</span>クラス
       </h1>
-      <p class="text-gray-500 text-sm">担当教員・TA・受講生の情報</p>
+      <p class="text-gray-500 text-sm" data-i18n="summer_wed_class_info">担当教員・TA・受講生の情報</p>
     </div>
 
     <!-- 担当教員 -->
     <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-6">
       <div class="flex items-center gap-3 mb-4">
         <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center text-xl">👩‍🏫</div>
-        <h2 class="font-bold text-lg text-gray-800">担当教員</h2>
+        <h2 class="font-bold text-lg text-gray-800" data-i18n="summer_wed_instructor">担当教員</h2>
       </div>
-      <p class="text-sm text-gray-400 italic">（後日掲載）</p>
+      <p class="text-sm text-gray-400 italic" data-i18n="summer_wed_tba_1">（後日掲載）</p>
     </div>
 
     <!-- TA -->
     <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-6">
       <div class="flex items-center gap-3 mb-4">
         <div class="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center text-xl">🎓</div>
-        <h2 class="font-bold text-lg text-gray-800">ティーチングアシスタント（TA）</h2>
+        <h2 class="font-bold text-lg text-gray-800" data-i18n="summer_wed_ta">ティーチングアシスタント（TA）</h2>
       </div>
-      <p class="text-sm text-gray-400 italic">（後日掲載）</p>
+      <p class="text-sm text-gray-400 italic" data-i18n="summer_wed_tba_2">（後日掲載）</p>
     </div>
 
     <!-- 受講生 -->
     <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-10">
       <div class="flex items-center gap-3 mb-4">
         <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-xl">👥</div>
-        <h2 class="font-bold text-lg text-gray-800">受講生</h2>
+        <h2 class="font-bold text-lg text-gray-800" data-i18n="summer_wed_students">受講生</h2>
       </div>
-      <p class="text-sm text-gray-400 italic">（後日掲載）</p>
+      <p class="text-sm text-gray-400 italic" data-i18n="summer_wed_tba_3">（後日掲載）</p>
     </div>
 
     <!-- Back -->
     <div class="text-center fade-in">
       <a href="../" class="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-gray-800 transition-all hover:shadow-xl">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-        トップに戻る
+        <span data-i18n="summer_wed_back_bottom">トップに戻る</span>
       </a>
     </div>
   </main>
@@ -103,5 +104,41 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
+
+  <script>
+const i18n_en = {
+  "summer_wed_nav_back": "Back to Top",
+  "summer_wed_course_name": "Humanities &amp; Dialogue 2026",
+  "summer_wed_class_title": "<span class=\"gradient-text\">Summer / Wednesday</span> Class",
+  "summer_wed_class_info": "Instructor, TA &amp; Student Information",
+  "summer_wed_instructor": "Instructor",
+  "summer_wed_ta": "Teaching Assistant (TA)",
+  "summer_wed_tba_1": "(To be announced)",
+  "summer_wed_tba_2": "(To be announced)",
+  "summer_wed_tba_3": "(To be announced)",
+  "summer_wed_students": "Students",
+  "summer_wed_back_bottom": "Back to Top"
+};
+let currentLang = sessionStorage.getItem('hd_lang') || 'ja';
+const jaTexts = {};
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  jaTexts[el.getAttribute('data-i18n')] = el.innerHTML;
+});
+function applyLang() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (currentLang === 'en' && i18n_en[key]) el.innerHTML = i18n_en[key];
+    else if (jaTexts[key]) el.innerHTML = jaTexts[key];
+  });
+  const btn = document.getElementById('lang-toggle');
+  if (btn) btn.textContent = currentLang === 'ja' ? 'EN' : 'JP';
+}
+function toggleLang() {
+  currentLang = currentLang === 'ja' ? 'en' : 'ja';
+  sessionStorage.setItem('hd_lang', currentLang);
+  applyLang();
+}
+applyLang();
+</script>
 </body>
 </html>

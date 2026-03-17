@@ -138,11 +138,12 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
         <span class="text-xl">💬</span>
-        <span>人文学と対話</span>
+        <span data-i18n="s3_nav_title">人文学と対話</span>
       </a>
       <div class="flex items-center gap-3 sm:gap-6 text-sm font-medium text-gray-600">
-        <a href="2.html" class="hover:text-violet-600 transition-colors hidden sm:block">← 前回</a>
-        <a href="4.html" class="bg-gradient-to-r from-violet-500 to-purple-500 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-semibold hover:shadow-lg hover:shadow-violet-200 transition-all">
+        <a href="2.html" class="hover:text-violet-600 transition-colors hidden sm:block" data-i18n="s3_nav_prev">&larr; 前回</a>
+        <button id="lang-toggle" onclick="toggleLang()" class="px-3 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all">EN</button>
+        <a href="4.html" class="bg-gradient-to-r from-violet-500 to-purple-500 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-semibold hover:shadow-lg hover:shadow-violet-200 transition-all" data-i18n="s3_nav_next">
           次の授業 →
         </a>
       </div>
@@ -153,15 +154,15 @@
   <header class="relative pt-32 pb-16 px-4 sm:px-6">
     <div class="max-w-4xl mx-auto text-center">
       <div class="fade-in">
-        <span class="pill bg-violet-100 text-violet-700 mb-4 inline-block">問い</span>
+        <span class="pill bg-violet-100 text-violet-700 mb-4 inline-block" data-i18n="s3_pill">問い</span>
         <div class="flex items-center justify-center gap-3 mb-4">
           <span class="text-6xl sm:text-7xl font-black text-violet-200">03</span>
         </div>
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-4">
-          <span class="text-gray-800">協働の探究のための</span><br>
-          <span class="gradient-text">〈問い Inquiry Question〉を立て、共有する</span>
+          <span class="text-gray-800" data-i18n="s3_title_line1">協働の探究のための</span><br>
+          <span class="gradient-text" data-i18n="s3_title_line2">〈問い Inquiry Question〉を立て、共有する</span>
         </h1>
-        <p class="text-base sm:text-lg text-gray-500 font-light">第3回　人文学と対話（2026春）</p>
+        <p class="text-base sm:text-lg text-gray-500 font-light" data-i18n="s3_subtitle">第3回　人文学と対話（2026春）</p>
       </div>
     </div>
   </header>
@@ -171,9 +172,9 @@
     <div class="fade-in glass-strong rounded-3xl p-6 sm:p-8 border-l-4 border-violet-400">
       <div class="flex items-center gap-3 mb-3">
         <div class="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center text-xl">🎯</div>
-        <h2 class="font-bold text-lg text-gray-800">この授業の目標</h2>
+        <h2 class="font-bold text-lg text-gray-800" data-i18n="s3_obj_title">この授業の目標</h2>
       </div>
-      <p class="text-gray-700 leading-relaxed">
+      <p class="text-gray-700 leading-relaxed" data-i18n="s3_obj_desc">
         グループで〈問い〉を作り、共有する
       </p>
     </div>
@@ -182,8 +183,8 @@
   <!-- Session Flow Timeline -->
   <section class="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
     <div class="fade-in text-center mb-8">
-      <h2 class="text-2xl sm:text-3xl font-black text-gray-800 mb-2">授業の流れ</h2>
-      <p class="text-gray-500 text-sm">セッションのタイムライン</p>
+      <h2 class="text-2xl sm:text-3xl font-black text-gray-800 mb-2" data-i18n="s3_flow_title">授業の流れ</h2>
+      <p class="text-gray-500 text-sm" data-i18n="s3_flow_subtitle">セッションのタイムライン</p>
     </div>
 
     <div class="space-y-0 stagger">
@@ -193,10 +194,10 @@
         <div class="timeline-dot bg-violet-500 text-white absolute left-0 top-0">1</div>
         <div class="glass rounded-2xl p-5">
           <div class="flex items-center gap-2 mb-1">
-            <span class="pill bg-amber-100 text-amber-600 text-xs">ミニワーク</span>
+            <span class="pill bg-amber-100 text-amber-600 text-xs" data-i18n="s3_pill_mini">ミニワーク</span>
           </div>
-          <h3 class="font-bold text-gray-800 text-sm">はじめのミニワーク「発声練習」</h3>
-          <p class="text-xs text-gray-500 mt-1">質問：「あなたのおすすめの動画コンテンツは何ですか？」</p>
+          <h3 class="font-bold text-gray-800 text-sm" data-i18n="s3_step1_title">はじめのミニワーク「発声練習」</h3>
+          <p class="text-xs text-gray-500 mt-1" data-i18n="s3_step1_desc">質問：「あなたのおすすめの動画コンテンツは何ですか？」</p>
         </div>
       </div>
 
@@ -206,11 +207,11 @@
         <div class="timeline-dot bg-violet-500 text-white absolute left-0 top-0">2</div>
         <div class="glass rounded-2xl p-5">
           <div class="flex items-center gap-2 mb-1">
-            <span class="pill bg-red-100 text-red-600 text-xs">動画</span>
+            <span class="pill bg-red-100 text-red-600 text-xs" data-i18n="s3_pill_video">動画</span>
           </div>
-          <h3 class="font-bold text-gray-800 text-sm">講義動画の視聴</h3>
+          <h3 class="font-bold text-gray-800 text-sm" data-i18n="s3_step2_title">講義動画の視聴</h3>
           <div class="fade-in glass rounded-2xl p-4 sm:p-6 mt-4">
-            <p class="text-sm font-semibold text-gray-700 mb-3">「協働の探究のための〈問い〉を立て、共有する」</p>
+            <p class="text-sm font-semibold text-gray-700 mb-3" data-i18n="s3_video_label">「協働の探究のための〈問い〉を立て、共有する」</p>
             <div class="relative w-full" style="padding-bottom:56.25%;">
               <iframe class="absolute inset-0 w-full h-full rounded-xl" src="https://www.youtube-nocookie.com/embed/Qlcp1v-c3XU" title="「協働の探究のための〈問い〉を立て、共有する」" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
@@ -223,8 +224,8 @@
         <div class="timeline-line"></div>
         <div class="timeline-dot bg-violet-400 text-white absolute left-0 top-0">3</div>
         <div class="glass rounded-2xl p-5">
-          <h3 class="font-bold text-gray-800 text-sm">質問タイム・模範演技</h3>
-          <p class="text-xs text-gray-500 mt-1">ティーチングスタッフ3人の模範演技を見る（3分程度）</p>
+          <h3 class="font-bold text-gray-800 text-sm" data-i18n="s3_step3_title">質問タイム・模範演技</h3>
+          <p class="text-xs text-gray-500 mt-1" data-i18n="s3_step3_desc">ティーチングスタッフ3人の模範演技を見る（3分程度）</p>
         </div>
       </div>
 
@@ -234,10 +235,10 @@
         <div class="timeline-dot bg-purple-500 text-white absolute left-0 top-0">4</div>
         <div class="glass rounded-2xl p-5 border-l-4 border-purple-400">
           <div class="flex items-center gap-2 mb-1">
-            <span class="pill bg-purple-100 text-purple-600 text-xs">対話ワーク</span>
+            <span class="pill bg-purple-100 text-purple-600 text-xs" data-i18n="s3_pill_dialogue">対話ワーク</span>
           </div>
-          <h3 class="font-bold text-gray-800 text-sm">対話ワーク（15分 x 2ターン）</h3>
-          <p class="text-xs text-gray-500 mt-1">グループワーク：問いを共有し、15分ずつ議論。最終的にグループの問いを選ぶ</p>
+          <h3 class="font-bold text-gray-800 text-sm" data-i18n="s3_step4_title">対話ワーク（15分 x 2ターン）</h3>
+          <p class="text-xs text-gray-500 mt-1" data-i18n="s3_step4_desc">グループワーク：問いを共有し、15分ずつ議論。最終的にグループの問いを選ぶ</p>
         </div>
       </div>
 
@@ -245,7 +246,7 @@
       <div class="fade-in relative pl-14 pb-2">
         <div class="timeline-dot bg-violet-600 text-white absolute left-0 top-0">5</div>
         <div class="glass rounded-2xl p-5">
-          <h3 class="font-bold text-gray-800 text-sm">ふりかえりフォームの記入</h3>
+          <h3 class="font-bold text-gray-800 text-sm" data-i18n="s3_step5_title">ふりかえりフォームの記入</h3>
         </div>
       </div>
     </div>
@@ -259,7 +260,7 @@
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
         </svg>
-        ふりかえりフォームを提出する
+        <span data-i18n="s3_submit_form">ふりかえりフォームを提出する</span>
       </a>
     </div>
   </section>
@@ -269,9 +270,9 @@
     <div class="fade-in glass-strong rounded-3xl p-6 sm:p-8">
       <div class="flex items-center gap-3 mb-4">
         <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-xl">📚</div>
-        <h2 class="font-bold text-lg text-gray-800">次回の準備</h2>
+        <h2 class="font-bold text-lg text-gray-800" data-i18n="s3_prep_title">次回の準備</h2>
       </div>
-      <p class="text-sm text-gray-600 leading-relaxed mb-4">
+      <p class="text-sm text-gray-600 leading-relaxed mb-4" data-i18n="s3_prep_desc">
         事前学習動画を視聴し、「人文学は役に立つのか」についての問いを準備してきてください。
       </p>
       <div class="space-y-3">
@@ -279,7 +280,7 @@
            class="flex items-center gap-3 p-4 rounded-2xl bg-white/50 hover:bg-white/80 transition-all group">
           <div class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center text-white text-sm flex-shrink-0">▶</div>
           <div>
-            <p class="font-semibold text-gray-800 group-hover:text-red-600 transition-colors text-sm">事前学習動画 1</p>
+            <p class="font-semibold text-gray-800 group-hover:text-red-600 transition-colors text-sm" data-i18n="s3_prevideo1_title">事前学習動画 1</p>
             <p class="text-xs text-gray-500">YouTube</p>
           </div>
         </a>
@@ -287,7 +288,7 @@
            class="flex items-center gap-3 p-4 rounded-2xl bg-white/50 hover:bg-white/80 transition-all group">
           <div class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center text-white text-sm flex-shrink-0">▶</div>
           <div>
-            <p class="font-semibold text-gray-800 group-hover:text-red-600 transition-colors text-sm">事前学習動画 2</p>
+            <p class="font-semibold text-gray-800 group-hover:text-red-600 transition-colors text-sm" data-i18n="s3_prevideo2_title">事前学習動画 2</p>
             <p class="text-xs text-gray-500">YouTube</p>
           </div>
         </a>
@@ -300,11 +301,11 @@
     <a href="4.html" class="fade-in block glass rounded-3xl p-6 sm:p-8 hover:shadow-xl hover:shadow-orange-100 transition-all hover:-translate-y-1 group">
       <div class="flex items-center justify-between">
         <div>
-          <p class="text-xs text-gray-400 mb-1">次の授業</p>
+          <p class="text-xs text-gray-400 mb-1" data-i18n="s3_next_label">次の授業</p>
           <div class="flex items-center gap-2 mb-1">
-            <span class="pill bg-orange-100 text-orange-700">聴く</span>
+            <span class="pill bg-orange-100 text-orange-700" data-i18n="s3_next_pill">聴く</span>
           </div>
-          <h3 class="font-bold text-gray-800 group-hover:text-orange-600 transition-colors">第4回　「人文学は役に立つのか」：現代における人文学の課題</h3>
+          <h3 class="font-bold text-gray-800 group-hover:text-orange-600 transition-colors" data-i18n="s3_next_title">第4回　「人文学は役に立つのか」：現代における人文学の課題</h3>
         </div>
         <svg class="w-6 h-6 text-gray-300 group-hover:text-orange-500 transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -316,8 +317,8 @@
   <!-- Footer -->
   <footer class="text-center py-12 px-4">
     <div class="fade-in">
-      <p class="text-sm text-gray-400">大阪大学大学院 人文学研究科</p>
-      <p class="text-xs text-gray-300 mt-1">人文学基礎（人文学と対話）2026春</p>
+      <p class="text-sm text-gray-400" data-i18n="s3_footer1">大阪大学大学院 人文学研究科</p>
+      <p class="text-xs text-gray-300 mt-1" data-i18n="s3_footer2">人文学基礎（人文学と対話）2026春</p>
     </div>
   </footer>
 
@@ -332,6 +333,68 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+  <!-- i18n Script -->
+  <script>
+const i18n_en = {
+  s3_nav_title: 'Humanities & Dialogue',
+  s3_nav_prev: '&larr; Previous',
+  s3_nav_next: 'Next Session &rarr;',
+  s3_pill: 'Inquiry',
+  s3_title_line1: 'Creating and Sharing',
+  s3_title_line2: 'Inquiry Questions for Collaborative Exploration',
+  s3_subtitle: 'Session 3 &mdash; Humanities & Dialogue (Spring 2026)',
+  s3_obj_title: 'Session Objective',
+  s3_obj_desc: 'Create and share inquiry questions in groups',
+  s3_flow_title: 'Session Flow',
+  s3_flow_subtitle: 'Session Timeline',
+  s3_pill_mini: 'Mini Work',
+  s3_step1_title: 'Opening mini-work: Voice warm-up',
+  s3_step1_desc: 'Question: "What video content would you recommend?"',
+  s3_pill_video: 'Video',
+  s3_step2_title: 'Watch lecture video',
+  s3_video_label: '"Creating and Sharing Inquiry Questions for Collaborative Exploration"',
+  s3_step3_title: 'Q&A / Model demonstration',
+  s3_step3_desc: 'Watch a demonstration by three teaching staff members (approx. 3 min)',
+  s3_pill_dialogue: 'Dialogue Work',
+  s3_step4_title: 'Dialogue work (15 min x 2 turns)',
+  s3_step4_desc: 'Group work: share questions and discuss for 15 min each turn; select a group question at the end',
+  s3_step5_title: 'Fill in the reflection form',
+  s3_submit_form: 'Submit Reflection Form',
+  s3_prep_title: 'Preparation for Next Session',
+  s3_prep_desc: 'Watch the pre-learning videos and prepare a question about "Is humanities useful?"',
+  s3_prevideo1_title: 'Pre-learning Video 1',
+  s3_prevideo2_title: 'Pre-learning Video 2',
+  s3_next_label: 'Next Session',
+  s3_next_pill: 'Listening',
+  s3_next_title: 'Session 4: "Is Humanities Useful?": Challenges in Modern Humanities',
+  s3_footer1: 'Osaka University Graduate School of Humanities',
+  s3_footer2: 'Fundamentals of Humanities (Humanities & Dialogue) Spring 2026'
+};
+let currentLang = sessionStorage.getItem('hd_lang') || 'ja';
+const jaTexts = {};
+document.querySelectorAll('[data-i18n]').forEach(el => {
+  jaTexts[el.getAttribute('data-i18n')] = el.innerHTML;
+});
+function applyLang() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (currentLang === 'en' && i18n_en[key]) {
+      el.innerHTML = i18n_en[key];
+    } else if (jaTexts[key]) {
+      el.innerHTML = jaTexts[key];
+    }
+  });
+  const btn = document.getElementById('lang-toggle');
+  if (btn) btn.textContent = currentLang === 'ja' ? 'EN' : 'JP';
+}
+function toggleLang() {
+  currentLang = currentLang === 'ja' ? 'en' : 'ja';
+  sessionStorage.setItem('hd_lang', currentLang);
+  applyLang();
+}
+applyLang();
   </script>
 
 </body>
