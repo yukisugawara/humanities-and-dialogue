@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>シラバス | 人文学と対話（2026）</title>
+  <script src="auth.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['"Noto Sans JP"', '"Zen Kaku Gothic New"', 'sans-serif'] } } } }
+  </script>
+  <style>
+    * { font-family: 'Noto Sans JP', 'Zen Kaku Gothic New', sans-serif; }
+    .gradient-bg {
+      background: linear-gradient(-45deg, #fef3c7, #fce7f3, #e0e7ff, #ccfbf1, #fef3c7);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+    }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .glass { background: rgba(255,255,255,0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.8); }
+    .glass-strong { background: rgba(255,255,255,0.85); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.9); }
+    .gradient-text { background: linear-gradient(135deg, #7c3aed, #ec4899, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: blobFloat 8s ease-in-out infinite; }
+    @keyframes blobFloat { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-30px) scale(1.1); } 66% { transform: translate(-20px,20px) scale(0.9); } }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4,0,0.2,1); }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    html { scroll-behavior: smooth; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 4px; }
+    .section-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #a78bfa; margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body class="gradient-bg min-h-screen relative overflow-x-hidden">
+  <div class="blob w-96 h-96 bg-indigo-300 top-20 -left-48 fixed" style="animation-delay: 0s;"></div>
+  <div class="blob w-80 h-80 bg-violet-300 top-1/2 -right-40 fixed" style="animation-delay: 2s;"></div>
+
+  <nav class="fixed top-0 left-0 right-0 z-50 glass-strong">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="./" class="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors text-sm font-medium">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        <span data-i18n="syl_back">トップに戻る</span>
+      </a>
+      <button id="lang-toggle" onclick="toggleLang()" class="px-3 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all">EN</button>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-20">
+    <!-- Header -->
+    <div class="text-center mb-10 fade-in">
+      <div class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">📋</div>
+      <h1 class="text-3xl sm:text-4xl font-black text-gray-800 mb-2" data-i18n="syl_title">シラバス</h1>
+      <p class="text-gray-500 text-sm" data-i18n="syl_subtitle">人文学基礎（人文学と対話）</p>
+    </div>
+
+    <!-- Basic Info -->
+    <div class="fade-in glass-strong rounded-3xl p-6 sm:p-8 mb-6">
+      <div class="grid sm:grid-cols-2 gap-4 text-sm">
+        <div class="bg-white/50 rounded-2xl p-4">
+          <p class="section-label" data-i18n="syl_lbl_subtitle">授業サブタイトル / Course Subtitle</p>
+          <p class="font-semibold text-gray-800" data-i18n="syl_val_subtitle">人文学と対話</p>
+        </div>
+        <div class="bg-white/50 rounded-2xl p-4">
+          <p class="section-label" data-i18n="syl_lbl_lang">開講言語 / Language</p>
+          <p class="font-semibold text-gray-800" data-i18n="syl_val_lang">日本語</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Learning Methods -->
+    <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-6">
+      <h2 class="font-bold text-lg text-gray-800 mb-4" data-i18n="syl_methods_title">学習方法 / Learning Methods</h2>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <div class="bg-purple-50 rounded-2xl p-4">
+          <p class="font-bold text-purple-700 text-sm mb-1" data-i18n="syl_m1_title">聴講・視聴</p>
+          <p class="text-xs text-gray-600" data-i18n="syl_m1_desc">講義・教材・実演を視聴して学ぶ（例：講義の対面受講、オンデマンド教材視聴）</p>
+        </div>
+        <div class="bg-blue-50 rounded-2xl p-4">
+          <p class="font-bold text-blue-700 text-sm mb-1" data-i18n="syl_m2_title">討論</p>
+          <p class="text-xs text-gray-600" data-i18n="syl_m2_desc">学生同士や教員との間で質疑応答や意見交換を行うことで学ぶ（例：ペア・グループディスカッション、オンラインでのチャット、論文個別指導）</p>
+        </div>
+        <div class="bg-emerald-50 rounded-2xl p-4">
+          <p class="font-bold text-emerald-700 text-sm mb-1" data-i18n="syl_m3_title">協同</p>
+          <p class="text-xs text-gray-600" data-i18n="syl_m3_desc">ペアやグループで行う協同作業を通して学ぶ（例：グループによるポスター制作）</p>
+        </div>
+        <div class="bg-amber-50 rounded-2xl p-4">
+          <p class="font-bold text-amber-700 text-sm mb-1" data-i18n="syl_m4_title">体験・実践</p>
+          <p class="text-xs text-gray-600" data-i18n="syl_m4_desc">体験・実践等の行動ならびにそれに対するフィードバックにより学ぶ（例：問題演習、課題解決型学習）</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Course Objectives -->
+    <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-6">
+      <h2 class="font-bold text-lg text-gray-800 mb-4" data-i18n="syl_obj_title">授業の目的と概要 / Course Objectives</h2>
+      <div class="text-sm text-gray-600 leading-relaxed space-y-4">
+        <p data-i18n="syl_obj_p1">人文学は人間がつくってきた文化（歴史、言語、表現）、価値や認識の枠組みを主な研究対象とする学問であり、地理、歴史、文化上の他者の文化についての知見、洞察を深めながら、自分の属する文化や認識の枠組みを反省的に見直す営みがそこに含み込まれています。対話とは、自分とは異なる他者を認め、理解することであり、他者と共通の課題を見出し、探究することであるとするならば、他者や他文化と対話する力は人文学の営みの根幹に関わることであるとともに、人文学が現代的な課題や社会的要請に応えるためにも必要な力であると言えます。</p>
+        <p data-i18n="syl_obj_p2">現代社会では、科学技術の進歩や経済成長、効率が重視される反面、それが人間にとってどういった意味や価値を持つのかが問われている時代でもあります。また、グローバリゼーションのなかでの人口移動・変動、社会的属性や価値観の異なる人々の間の分断など、異なる世代・文化に属する人たちの間の対話と共生が課題となっています。つまり、ある事象や技術が人間にとって持つ意味や価値について考察し、異なる価値を持つ人々・文化を理解し対話する人文学の知見が現代ほど必要とされている時代はないと言えるのです。ただし、人文学がこれらの現代的、社会的要請に応えることができるためには、従来のディシプリンだけにとどまるのではなく、社会科学や自然科学等、他領域の専門家との対話や協働を行うことが重要であり、実際の社会課題にコミットし、社会のなかで生きている様々な価値や属性を持つ人々、市民やコミュニティとの対話のなかで、新たな人文学の知や研究実践を構築することが必要になると思われます。この授業では、人文学固有のディシプリン・存在意義について理解を深めるとともに、対話という態度やスキルを学びながら、現代的な課題に応えることのできる人文学的研究や実践とはどのようなものであるのかを受講者と共に考えることを行います。</p>
+      </div>
+    </div>
+
+    <!-- Learning Goals -->
+    <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-6">
+      <h2 class="font-bold text-lg text-gray-800 mb-4" data-i18n="syl_goals_title">学習目標 / Learning Goals</h2>
+      <div class="space-y-3">
+        <div class="flex items-start gap-3 bg-white/50 rounded-2xl p-4">
+          <span class="w-7 h-7 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white text-xs font-bold flex-shrink-0">1</span>
+          <p class="text-sm text-gray-700" data-i18n="syl_goal1">専門分野や考え方、文化的背景が異なる他者を尊重し、協働する対話的関係性を築くことができる</p>
+        </div>
+        <div class="flex items-start gap-3 bg-white/50 rounded-2xl p-4">
+          <span class="w-7 h-7 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white text-xs font-bold flex-shrink-0">2</span>
+          <p class="text-sm text-gray-700" data-i18n="syl_goal2">他者に対して積極的に質問し、自他の考え（価値、前提）への理解や気づきを深めることができる</p>
+        </div>
+        <div class="flex items-start gap-3 bg-white/50 rounded-2xl p-4">
+          <span class="w-7 h-7 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white text-xs font-bold flex-shrink-0">3</span>
+          <p class="text-sm text-gray-700" data-i18n="syl_goal3">具体的な事柄について問いを立て、他の人と問いを共有し、協働の探究を行うことができる</p>
+        </div>
+        <div class="flex items-start gap-3 bg-white/50 rounded-2xl p-4">
+          <span class="w-7 h-7 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white text-xs font-bold flex-shrink-0">4</span>
+          <p class="text-sm text-gray-700" data-i18n="syl_goal4">授業で体験した対話や協働の探求の意義を理解し、それが社会活動や研究・教育活動のなかでどのように適用することができるか述べることができる</p>
+        </div>
+        <div class="flex items-start gap-3 bg-white/50 rounded-2xl p-4">
+          <span class="w-7 h-7 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white text-xs font-bold flex-shrink-0">5</span>
+          <p class="text-sm text-gray-700" data-i18n="syl_goal5">人文学の方法論や存在意義を理解し、それをもとに現代的課題に応える人文学的研究・実践のあり方について、自分の意見やアイディアを述べることができる</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Requirements & Attendance -->
+    <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-6">
+      <h2 class="font-bold text-lg text-gray-800 mb-4" data-i18n="syl_req_title">履修条件・出欠席ルール</h2>
+      <div class="space-y-4 text-sm text-gray-600">
+        <div class="bg-white/50 rounded-2xl p-4">
+          <p class="section-label" data-i18n="syl_req_lbl">履修条件 / Prerequisites</p>
+          <p data-i18n="syl_req_text">人文学研究科の博士前期課程一年生向けの必修の授業です。</p>
+        </div>
+        <div class="bg-white/50 rounded-2xl p-4 space-y-2">
+          <p class="section-label" data-i18n="syl_att_lbl">出欠席ルール / Attendance Policy</p>
+          <p data-i18n="syl_att_1">全授業回数のうち3分の2以上出席することが必要です。出席回数がこれに満たない場合、成績評価の対象外となります。</p>
+          <p data-i18n="syl_att_2">授業90分間Zoomに入室しない場合は欠席、授業開始後30分以降にZoomに入室した場合は遅刻（0.5欠席）とみなします。早退も0.5欠席とみなします。ただし、病気・通院や忌引等のやむを得ない理由の場合は履修上不利益とならないよう配慮します。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Class Plan -->
+    <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-6">
+      <h2 class="font-bold text-lg text-gray-800 mb-4" data-i18n="syl_plan_title">授業計画 / Class Plan</h2>
+      <div class="space-y-3">
+        <div class="bg-white/50 rounded-2xl p-4 border-l-4 border-emerald-400">
+          <p class="font-bold text-gray-800 text-sm mb-1">第1回</p>
+          <p class="font-semibold text-emerald-700 text-sm mb-2" data-i18n="syl_c1">対話と探究を体験する（1）対話のコミュニティをひらく</p>
+          <p class="text-xs text-gray-500" data-i18n="syl_c1d">対話的な関係性を築くための最初のセッション。対話とは何をすることか、参加者が安心して参加できる対話の場とは、オンラインにおける対話とは、について学びます。</p>
+        </div>
+        <div class="bg-white/50 rounded-2xl p-4 border-l-4 border-blue-400">
+          <p class="font-bold text-gray-800 text-sm mb-1">第2回</p>
+          <p class="font-semibold text-blue-700 text-sm mb-2" data-i18n="syl_c2">対話と探究を体験する（2）質問を通じて他者を理解する</p>
+          <p class="text-xs text-gray-500" data-i18n="syl_c2d">対話と探究のスキルとしての「質問」について学び、実践するとともに、他の参加者との交流を深めます。</p>
+        </div>
+        <div class="bg-white/50 rounded-2xl p-4 border-l-4 border-violet-400">
+          <p class="font-bold text-gray-800 text-sm mb-1">第3回</p>
+          <p class="font-semibold text-violet-700 text-sm mb-2" data-i18n="syl_c3">対話と探究を体験する（3）「問い」を立てて探究する</p>
+          <p class="text-xs text-gray-500" data-i18n="syl_c3d">対話と探究のスキルとしての「問い」について学び、自分で問いを立てる練習をします。グループでそれぞれの問いを共有し、ブラッシュアップさせます。</p>
+        </div>
+        <div class="bg-white/50 rounded-2xl p-4 border-l-4 border-orange-400">
+          <p class="font-bold text-gray-800 text-sm mb-1">第4回</p>
+          <p class="font-semibold text-orange-700 text-sm mb-2" data-i18n="syl_c4">人文学は「役に立つ」のか？ー現代における人文学の課題</p>
+          <p class="text-xs text-gray-500" data-i18n="syl_c4d">質問や問いを立てるスキルを使って、人文学は「役に立つ」のか？というテーマや、人文学と社会課題との接点についてともに探究します。</p>
+        </div>
+        <div class="bg-white/50 rounded-2xl p-4 border-l-4 border-cyan-400">
+          <p class="font-bold text-gray-800 text-sm mb-1">第5回</p>
+          <p class="font-semibold text-cyan-700 text-sm mb-2" data-i18n="syl_c5">人文学研究と生成AI</p>
+          <p class="text-xs text-gray-500" data-i18n="syl_c5d">質問や問いを立てるスキルを使って、生成AIを人文学研究に導入することについてともに探究します。</p>
+        </div>
+        <div class="bg-white/50 rounded-2xl p-4 border-l-4 border-rose-400">
+          <p class="font-bold text-gray-800 text-sm mb-1">第6回</p>
+          <p class="font-semibold text-rose-700 text-sm mb-2" data-i18n="syl_c6">人文学研究と倫理</p>
+          <p class="text-xs text-gray-500" data-i18n="syl_c6d">質問や問いを立てるスキルを使って、人文学研究における研究倫理や研究者の社会的責任、研究環境の問題についてともに探究します。</p>
+        </div>
+        <div class="bg-white/50 rounded-2xl p-4 border-l-4 border-teal-400">
+          <p class="font-bold text-gray-800 text-sm mb-1">第7回</p>
+          <p class="font-semibold text-teal-700 text-sm mb-2" data-i18n="syl_c7">人文学と現代の共生や人権の課題</p>
+          <p class="text-xs text-gray-500" data-i18n="syl_c7d">質問や問いを立てるスキルを使って、異なる社会的属性を持つ人の分断が進む現代社会における共生や人権の課題と人文学の関わりについてともに探究します。</p>
+        </div>
+        <div class="bg-white/50 rounded-2xl p-4 border-l-4 border-indigo-400">
+          <p class="font-bold text-gray-800 text-sm mb-1">第8回</p>
+          <p class="font-semibold text-indigo-700 text-sm mb-2" data-i18n="syl_c8">人文系大学院生のキャリア形成</p>
+          <p class="text-xs text-gray-500" data-i18n="syl_c8d">質問や問いを立てるスキルを使って、人文系の大学院生のキャリア形成や人文学を学んだ人が社会でどのように活躍できるのかについてともに探究します。</p>
+        </div>
+      </div>
+      <p class="text-xs text-gray-400 mt-4" data-i18n="syl_hw_note">※各回とも、授業前に関連動画の事前学習、授業後にふりかえりシートの作成・提出が必要です。</p>
+    </div>
+
+    <!-- References -->
+    <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-6">
+      <h2 class="font-bold text-lg text-gray-800 mb-4" data-i18n="syl_ref_title">参考図書 / References</h2>
+      <ul class="space-y-2 text-sm text-gray-600">
+        <li class="flex items-start gap-2"><span class="text-purple-400 mt-1 flex-shrink-0">●</span><span>高橋綾・ほんまなほ『こどものてつがく ケアと幸せのための対話』大阪大学出版会、2018年</span></li>
+        <li class="flex items-start gap-2"><span class="text-purple-400 mt-1 flex-shrink-0">●</span><span>安斎勇樹・塩瀬隆之『問いのデザイン：創造的対話のファシリテーション』学芸出版社、2020年</span></li>
+        <li class="flex items-start gap-2"><span class="text-purple-400 mt-1 flex-shrink-0">●</span><span>隠岐さや香『理系と文系はなぜ分かれたのか』星海社新書、2018年</span></li>
+        <li class="flex items-start gap-2"><span class="text-purple-400 mt-1 flex-shrink-0">●</span><span>眞嶋俊造・奥田太郎・河野哲也編著『人文・社会科学のための研究倫理ハンドブック』慶應義塾大学出版会、2015年</span></li>
+      </ul>
+    </div>
+
+    <!-- Grading -->
+    <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-6">
+      <h2 class="font-bold text-lg text-gray-800 mb-4" data-i18n="syl_grade_title">成績評価 / Grading</h2>
+      <div class="grid sm:grid-cols-2 gap-4 mb-4">
+        <div class="bg-purple-50 rounded-2xl p-5 text-center">
+          <p class="text-3xl font-black text-purple-700">70%</p>
+          <p class="text-sm font-semibold text-purple-600 mt-1" data-i18n="syl_grade_part">授業・グループワークへの参加</p>
+        </div>
+        <div class="bg-pink-50 rounded-2xl p-5 text-center">
+          <p class="text-3xl font-black text-pink-700">30%</p>
+          <p class="text-sm font-semibold text-pink-600 mt-1" data-i18n="syl_grade_report">小課題・最終レポート</p>
+        </div>
+      </div>
+
+      <!-- Attendance Points -->
+      <div class="bg-white/50 rounded-2xl p-4 mb-3">
+        <p class="font-semibold text-sm text-gray-800 mb-2" data-i18n="syl_att_pts_title">出席点（30点満点）</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-center border-separate" style="border-spacing:4px;">
+            <thead>
+              <tr>
+                <th class="bg-purple-100 text-purple-700 rounded-lg px-2 py-1.5 font-bold" data-i18n="syl_att_col">出席回数</th>
+                <th class="bg-purple-50 rounded-lg px-2 py-1.5">5.5</th>
+                <th class="bg-purple-50 rounded-lg px-2 py-1.5">6</th>
+                <th class="bg-purple-50 rounded-lg px-2 py-1.5">6.5</th>
+                <th class="bg-purple-50 rounded-lg px-2 py-1.5">7</th>
+                <th class="bg-purple-50 rounded-lg px-2 py-1.5">7.5</th>
+                <th class="bg-purple-50 rounded-lg px-2 py-1.5 font-bold">8</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="bg-purple-100 text-purple-700 rounded-lg px-2 py-1.5 font-bold" data-i18n="syl_att_pts">点数</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">15</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">18</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">21</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">24</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">27</td>
+                <td class="bg-emerald-50 rounded-lg px-2 py-1.5 font-bold text-emerald-700">30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Reflection Sheet Points -->
+      <div class="bg-white/50 rounded-2xl p-4 mb-3">
+        <p class="font-semibold text-sm text-gray-800 mb-2" data-i18n="syl_ref_pts_title">ふりかえりシート提出点（20点満点）</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-center border-separate" style="border-spacing:4px;">
+            <thead>
+              <tr>
+                <th class="bg-pink-100 text-pink-700 rounded-lg px-2 py-1.5 font-bold" data-i18n="syl_ref_col">提出回数</th>
+                <th class="bg-pink-50 rounded-lg px-2 py-1.5">1</th>
+                <th class="bg-pink-50 rounded-lg px-2 py-1.5">2</th>
+                <th class="bg-pink-50 rounded-lg px-2 py-1.5">3</th>
+                <th class="bg-pink-50 rounded-lg px-2 py-1.5">4</th>
+                <th class="bg-pink-50 rounded-lg px-2 py-1.5">5</th>
+                <th class="bg-pink-50 rounded-lg px-2 py-1.5">6</th>
+                <th class="bg-pink-50 rounded-lg px-2 py-1.5">7</th>
+                <th class="bg-pink-50 rounded-lg px-2 py-1.5 font-bold">8</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="bg-pink-100 text-pink-700 rounded-lg px-2 py-1.5 font-bold" data-i18n="syl_ref_pts">点数</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">2</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">4</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">6</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">10</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">13</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">16</td>
+                <td class="bg-gray-50 rounded-lg px-2 py-1.5">18</td>
+                <td class="bg-emerald-50 rounded-lg px-2 py-1.5 font-bold text-emerald-700">20</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Reflection Quality -->
+      <div class="bg-white/50 rounded-2xl p-4 mb-4">
+        <p class="font-semibold text-sm text-gray-800 mb-2" data-i18n="syl_refq_title">ふりかえりシート達成度（20点満点）</p>
+        <p class="text-xs text-gray-600" data-i18n="syl_refq_desc">担当講師が全8回分のふりかえりシートの内容を質的に評価して採点します。</p>
+      </div>
+
+      <div class="text-xs text-gray-500 space-y-2">
+        <p data-i18n="syl_grade_note1">コミュニケーションや対話力という実技養成を目的とするため授業への8割以上の参加を原則とします。</p>
+        <details class="bg-white/50 rounded-xl p-3 cursor-pointer">
+          <summary class="font-semibold text-gray-700" data-i18n="syl_grade_gw_title">グループワーク評価の観点</summary>
+          <div class="mt-2 space-y-1 text-gray-500">
+            <p data-i18n="syl_grade_gw1">（1）専門分野や考え方、文化的背景が異なる他者を尊重し、協働的な対話的関係性を築くことができる</p>
+            <p data-i18n="syl_grade_gw2">（2）他者に対して積極的に質問し、自他の考えへの理解や気づきを深めることができる</p>
+            <p data-i18n="syl_grade_gw3">（3）具体的な事柄について問いを立て、対話のなかで問いを共有し、協働の探究を行うことができる</p>
+          </div>
+        </details>
+        <details class="bg-white/50 rounded-xl p-3 cursor-pointer">
+          <summary class="font-semibold text-gray-700" data-i18n="syl_grade_rpt_title">レポート評価の観点</summary>
+          <div class="mt-2 space-y-1 text-gray-500">
+            <p data-i18n="syl_grade_rpt1">（1）授業で学習した内容についての正確な知識をもとに意見を述べることができる</p>
+            <p data-i18n="syl_grade_rpt2">（2）意見を述べる際に探究のスキルとしての質問や問いを立てるというスキルを生かしている</p>
+            <p data-i18n="syl_grade_rpt3">（3）授業で学習したことやGWで話し合われたことに基づき、新しい観点や知識を加えて意見を述べることができる</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Reasonable Accommodation & Special Notes -->
+    <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-6">
+      <h2 class="font-bold text-lg text-gray-800 mb-4" data-i18n="syl_accom_title">合理的配慮 / Reasonable Accommodation</h2>
+      <div class="text-sm text-gray-600 space-y-2">
+        <p data-i18n="syl_accom_text">本授業を受けるにあたり、障がい（難病・慢性疾患等を含む）に起因して合理的配慮を要する場合は、所属学部／研究科の障がい学生支援担当窓口（教務係／学務係／学生支援係等）やキャンパスライフ健康支援・相談センターアクセシビリティ支援室に相談してください。</p>
+        <div class="bg-white/50 rounded-xl p-3 text-xs space-y-1">
+          <p class="font-semibold text-gray-700">キャンパスライフ健康支援・相談センター アクセシビリティ支援室</p>
+          <p>Website: <a href="https://acs.hacc.osaka-u.ac.jp" target="_blank" class="text-purple-600 hover:underline">https://acs.hacc.osaka-u.ac.jp</a></p>
+          <p>Tel: 06-6850-6107</p>
+          <p>E-mail: <a href="mailto:campuslifekenkou-acs@office.osaka-u.ac.jp" class="text-purple-600 hover:underline">campuslifekenkou-acs@office.osaka-u.ac.jp</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Special Notes -->
+    <div class="fade-in glass rounded-3xl p-6 sm:p-8 mb-10">
+      <h2 class="font-bold text-lg text-gray-800 mb-4" data-i18n="syl_special_title">特記事項 / Special Notes</h2>
+      <div class="text-sm text-gray-600 space-y-2">
+        <p data-i18n="syl_special1">少人数のオンラインでの対話・グループワーク型の授業になります。</p>
+        <p data-i18n="syl_special2">対話という活動の性質上、受講者はカメラオンで、グループワークに参加、発語できる環境・状態で受講してください。</p>
+      </div>
+    </div>
+
+    <!-- Back -->
+    <div class="text-center fade-in">
+      <a href="./" class="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-gray-800 transition-all hover:shadow-xl">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        <span data-i18n="syl_back2">トップに戻る</span>
+      </a>
+    </div>
+  </main>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+  <script>
+    const i18n_en = {
+      syl_back: 'Back to Top', syl_back2: 'Back to Top',
+      syl_title: 'Syllabus', syl_subtitle: 'Humanities (Humanities & Dialogue)',
+      syl_lbl_subtitle: 'Course Subtitle', syl_val_subtitle: 'Humanities & Dialogue',
+      syl_lbl_lang: 'Language', syl_val_lang: 'Japanese',
+      syl_methods_title: 'Learning Methods',
+      syl_m1_title: 'Lecture / Viewing', syl_m1_desc: 'Learn by attending lectures and watching materials (e.g., in-person lectures, on-demand videos)',
+      syl_m2_title: 'Discussion', syl_m2_desc: 'Learn through Q&A and exchange of opinions with peers and instructors (e.g., pair/group discussion, online chat)',
+      syl_m3_title: 'Collaboration', syl_m3_desc: 'Learn through collaborative work in pairs or groups (e.g., group poster projects)',
+      syl_m4_title: 'Experience / Practice', syl_m4_desc: 'Learn through hands-on experience and feedback (e.g., exercises, problem-based learning)',
+      syl_obj_title: 'Course Objectives',
+      syl_obj_p1: 'Humanities is an academic discipline that primarily studies the cultures created by human beings (history, language, expression), as well as the frameworks of values and cognition. It involves deepening knowledge and insight into the cultures of others across geography, history, and culture, while reflectively reviewing the cultural and cognitive frameworks to which one belongs. If dialogue is understood as recognizing and understanding others who are different from oneself, and as finding and exploring common issues with others, then the ability to engage in dialogue with others and other cultures is fundamental to the practice of humanities, and is also a necessary capacity for humanities to respond to contemporary challenges and social demands.',
+      syl_obj_p2: 'In modern society, while advances in science and technology, economic growth, and efficiency are emphasized, it is also an era in which their meaning and value for human beings are being questioned. Furthermore, population movements and changes within globalization, and divisions among people with different social attributes and values, make dialogue and coexistence between people of different generations and cultures a pressing issue. In other words, the humanities\' capacity to reflect on the meaning and value that phenomena and technologies hold for human beings, and to understand and engage in dialogue with people and cultures holding different values, has never been more needed than in the present age. However, for the humanities to respond to these contemporary and social demands, it is important not to remain within traditional disciplines alone, but to engage in dialogue and collaboration with experts in other fields such as social sciences and natural sciences, and to commit to actual social issues, building new humanities knowledge and research practices through dialogue with diverse citizens and communities living in society. In this course, we will deepen understanding of the unique disciplines and raison d\'etre of the humanities, while learning the attitudes and skills of dialogue, and collectively consider what kind of humanities research and practice can respond to contemporary challenges.',
+      syl_goals_title: 'Learning Goals',
+      syl_goal1: 'Be able to respect others with different fields of expertise, ways of thinking, and cultural backgrounds, and build collaborative dialogic relationships',
+      syl_goal2: 'Be able to actively ask questions of others and deepen understanding and awareness of one\'s own and others\' thinking (values, assumptions)',
+      syl_goal3: 'Be able to formulate questions about specific matters, share questions with others, and engage in collaborative inquiry',
+      syl_goal4: 'Be able to understand the significance of dialogue and collaborative inquiry experienced in class, and describe how they can be applied in social activities and research/educational activities',
+      syl_goal5: 'Be able to understand the methodology and raison d\'etre of the humanities, and express one\'s own opinions and ideas about what humanities research and practice that can respond to contemporary challenges should look like',
+      syl_req_title: 'Prerequisites & Attendance Policy',
+      syl_req_lbl: 'Prerequisites', syl_req_text: 'This is a required course for first-year master\'s students in the Graduate School of Humanities.',
+      syl_att_lbl: 'Attendance Policy',
+      syl_att_1: 'Students must attend at least two-thirds of all class sessions. Those who do not meet this requirement will not be eligible for grading.',
+      syl_att_2: 'Failure to join the Zoom session for the entire 90-minute class will be counted as an absence. Joining more than 30 minutes after class begins will be counted as a tardy (0.5 absence). Early departure is also counted as 0.5 absence. Exceptions will be made for unavoidable reasons such as illness or bereavement.',
+      syl_plan_title: 'Class Plan',
+      syl_c1: 'Experiencing Dialogue and Inquiry (1): Opening the Dialogue Community',
+      syl_c1d: 'The first session for building dialogic relationships. Learn what dialogue is, what makes a safe space for dialogue, and about online dialogue.',
+      syl_c2: 'Experiencing Dialogue and Inquiry (2): Understanding Others Through Questions',
+      syl_c2d: 'Learn and practice "questioning" as a skill for dialogue and inquiry, while deepening interaction with other participants.',
+      syl_c3: 'Experiencing Dialogue and Inquiry (3): Formulating and Exploring "Questions"',
+      syl_c3d: 'Learn about "questions" as a skill for dialogue and inquiry, practice formulating your own questions, and share and refine them in groups.',
+      syl_c4: 'Are Humanities "Useful"? — Challenges in Modern Humanities',
+      syl_c4d: 'Using questioning skills, explore the theme of whether humanities are "useful" and the intersection of humanities with social issues.',
+      syl_c5: 'Humanities Research and Generative AI',
+      syl_c5d: 'Using questioning skills, explore the introduction of generative AI into humanities research.',
+      syl_c6: 'Humanities Research and Ethics',
+      syl_c6d: 'Using questioning skills, explore research ethics, social responsibility of researchers, and issues in research environments in humanities.',
+      syl_c7: 'Humanities and Contemporary Issues of Coexistence and Human Rights',
+      syl_c7d: 'Using questioning skills, explore the relationship between humanities and issues of coexistence and human rights in modern society where divisions among people with different social attributes are deepening.',
+      syl_c8: 'Career Development for Humanities Graduate Students',
+      syl_c8d: 'Using questioning skills, explore career development for humanities graduate students and how those who studied humanities can contribute to society.',
+      syl_hw_note: '* For each session, pre-class video study and post-class reflection sheet submission are required.',
+      syl_ref_title: 'References',
+      syl_grade_title: 'Grading', syl_grade_part: 'Class & Group Work Participation', syl_grade_report: 'Assignments & Final Report',
+      syl_att_pts_title: 'Attendance Points (out of 30)',
+      syl_att_col: 'Attendance',
+      syl_att_pts: 'Points',
+      syl_ref_pts_title: 'Reflection Sheet Submission Points (out of 20)',
+      syl_ref_col: 'Submissions',
+      syl_ref_pts: 'Points',
+      syl_refq_title: 'Reflection Sheet Quality (out of 20)',
+      syl_refq_desc: 'The instructor qualitatively evaluates the content of all 8 reflection sheets and assigns a score.',
+      syl_grade_note1: 'Since this course aims to develop practical communication and dialogue skills, participation in at least 80% of classes is expected.',
+      syl_grade_gw_title: 'Group Work Evaluation Criteria', syl_grade_rpt_title: 'Report Evaluation Criteria',
+      syl_grade_gw1: '(1) Respect others with different backgrounds and build collaborative dialogic relationships',
+      syl_grade_gw2: '(2) Actively ask questions and deepen understanding of one\'s own and others\' thinking',
+      syl_grade_gw3: '(3) Formulate questions and engage in collaborative inquiry through dialogue',
+      syl_grade_rpt1: '(1) Express opinions based on accurate knowledge of course content',
+      syl_grade_rpt2: '(2) Utilize questioning and inquiry skills when expressing opinions',
+      syl_grade_rpt3: '(3) Express opinions incorporating new perspectives and knowledge based on class learning and group discussions',
+      syl_accom_title: 'Reasonable Accommodation',
+      syl_accom_text: 'If you require reasonable accommodation due to a disability (including intractable diseases and chronic conditions), please consult the disability student support office at your department/graduate school or the Accessibility Support Office at the Campus Life Health Support and Counseling Center.',
+      syl_special_title: 'Special Notes',
+      syl_special1: 'This is a small-group online dialogue and group work class.',
+      syl_special2: 'Due to the nature of dialogue activities, students must have their cameras on and be in an environment where they can participate in group work and speak.',
+    };
+    let currentLang = sessionStorage.getItem('hd_lang') || 'ja';
+    const jaTexts = {};
+    document.querySelectorAll('[data-i18n]').forEach(el => { jaTexts[el.getAttribute('data-i18n')] = el.innerHTML; });
+    function applyLang() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (currentLang === 'en' && i18n_en[key]) el.innerHTML = i18n_en[key];
+        else if (jaTexts[key]) el.innerHTML = jaTexts[key];
+      });
+      const btn = document.getElementById('lang-toggle');
+      if (btn) btn.textContent = currentLang === 'ja' ? 'EN' : 'JP';
+    }
+    function toggleLang() { currentLang = currentLang === 'ja' ? 'en' : 'ja'; sessionStorage.setItem('hd_lang', currentLang); applyLang(); }
+    applyLang();
+  </script>
+</body>
+</html>
