@@ -368,6 +368,106 @@
           </div>
         </div>
 
+        <!-- プロンプトテンプレート -->
+        <div class="bg-white/60 rounded-2xl p-5 mt-4 border border-gray-100">
+          <h4 class="font-bold text-gray-700 mb-3">具体的なプロンプト（指示文）のテンプレート</h4>
+          <p class="text-sm text-gray-600 leading-relaxed mb-4">人文学研究や、とくに大きなハードルとなる学振（日本学術振興会 特別研究員）申請書の作成において、生成AIを壁打ち相手やアシスタントとして活用するのは非常に効果的です。<br>以下の [ ] の部分をご自身の状況に合わせて書き換えて試してみてください。</p>
+
+          <!-- 1. 日々の研究 -->
+          <div class="mb-6">
+            <p class="font-bold text-cyan-700 text-sm mb-3 pb-1 border-b border-cyan-200">1. 日々の研究・調査を加速させるプロンプト</p>
+            <p class="text-xs text-gray-500 mb-4">人文学特有の「問いを深める」作業や、大量の文献処理をサポートします。</p>
+
+            <details class="mb-3">
+              <summary class="cursor-pointer text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors">💡 アイデア発想支援</summary>
+              <div class="mt-2 bg-gray-50 rounded-xl p-4">
+                <p class="text-xs text-gray-500 mb-1">プロンプト例：</p>
+                <p class="text-xs text-gray-700 font-mono leading-relaxed">私は現在、人文学の分野で「[研究テーマ：例：近代日本の都市空間と文学]」について研究しています。現在は主に「[現在の視点：例：特定の作家の作品分析]」という視点からアプローチしていますが、これとは異なる学際的なアプローチ（社会学、地理学、メディア論など）や、見落としがちな新しい観点を5つ提案してください。</p>
+              </div>
+            </details>
+
+            <details class="mb-3">
+              <summary class="cursor-pointer text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors">📝 文章の要約・下調べ</summary>
+              <div class="mt-2 bg-gray-50 rounded-xl p-4">
+                <p class="text-xs text-gray-500 mb-1">プロンプト例：</p>
+                <p class="text-xs text-gray-700 font-mono leading-relaxed">以下のテキストは、これから読もうとしている文献（[文献のタイトル等]）の一部です。この内容を、①主要な問題提起、②根拠となるデータや事例、③結論の3点に整理して、それぞれ200字程度で要約してください。<br><br>[ここにテキストを貼り付け]</p>
+              </div>
+            </details>
+
+            <details class="mb-3">
+              <summary class="cursor-pointer text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors">🔍 検索クエリの設計</summary>
+              <div class="mt-2 bg-gray-50 rounded-xl p-4">
+                <p class="text-xs text-gray-500 mb-1">プロンプト例：</p>
+                <p class="text-xs text-gray-700 font-mono leading-relaxed">「[研究のキーワード：例：民俗学、通過儀礼、現代社会]」に関する先行研究を、CiNiiやGoogle Scholarなどの学術データベースで検索したいです。網羅的に検索できるよう、類義語や関連語を組み合わせた、日本語と英語の検索キーワード（論理演算子 AND/OR を用いたクエリ）のパターンを5つ提案してください。</p>
+              </div>
+            </details>
+
+            <details class="mb-3">
+              <summary class="cursor-pointer text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors">💻 プログラミングやコード生成（テキストマイニング等）</summary>
+              <div class="mt-2 bg-gray-50 rounded-xl p-4">
+                <p class="text-xs text-gray-500 mb-1">プロンプト例：</p>
+                <p class="text-xs text-gray-700 font-mono leading-relaxed">人文学のテキスト分析のためにPythonを使いたいです。初心者です。「[テキストデータの種類：例：青空文庫のテキストファイル]」を読み込み、MeCabを使って形態素解析を行い、名詞と動詞の頻出単語トップ20を抽出して棒グラフ（matplotlib使用）で表示するコードを書いてください。各コードの意味がわかるように、丁寧なコメントを入れてください。</p>
+              </div>
+            </details>
+
+            <details class="mb-3">
+              <summary class="cursor-pointer text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors">📊 図表・ビジュアライゼーション</summary>
+              <div class="mt-2 bg-gray-50 rounded-xl p-4">
+                <p class="text-xs text-gray-500 mb-1">プロンプト例：</p>
+                <p class="text-xs text-gray-700 font-mono leading-relaxed">研究発表のスライド用に、「[概念A]」と「[概念B]」の相互関係を示す図解を作りたいです。これら2つの概念の「共通する背景」「対立する要素」「相互に与える影響」を視覚的にわかりやすく表現するための、図（ベン図、フローチャート、マトリックスなど）の構成アイデアを3つ提案してください。</p>
+              </div>
+            </details>
+          </div>
+
+          <!-- 2. 学振申請書 -->
+          <div class="mb-4">
+            <p class="font-bold text-cyan-700 text-sm mb-3 pb-1 border-b border-cyan-200">2. 学振申請書作成に特化したプロンプト (吉田, 2026)</p>
+            <p class="text-xs text-gray-500 mb-4">学振の審査委員は「あなたの専門分野のど真ん中の人」とは限りません。「専門外の優秀な研究者」に伝わる客観性と論理性を整えるためにAIを活用するのがコツです。</p>
+
+            <details class="mb-3">
+              <summary class="cursor-pointer text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors">📌 タイトル案作成</summary>
+              <div class="mt-2 bg-gray-50 rounded-xl p-4">
+                <p class="text-xs text-gray-500 mb-1">プロンプト例：</p>
+                <p class="text-xs text-gray-700 font-mono leading-relaxed">以下の研究概要を元に、学振（DC）の申請書用の研究課題名（タイトル）の案を10個出力してください。<br>専門外の審査委員にも「①何を対象とするか」「②どんな新しい視点があるか」が一目で伝わるよう、簡潔で惹きつけられる表現を意識してください。堅い表現から、少しキャッチーな表現まで幅広く出してください。<br><br>[ここに研究概要のメモを貼り付け]</p>
+              </div>
+            </details>
+
+            <details class="mb-3">
+              <summary class="cursor-pointer text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors">📄 概要案（サマリー）作成</summary>
+              <div class="mt-2 bg-gray-50 rounded-xl p-4">
+                <p class="text-xs text-gray-500 mb-1">プロンプト例：</p>
+                <p class="text-xs text-gray-700 font-mono leading-relaxed">以下の箇条書きのメモを元に、学振申請書の冒頭に配置する「概要（サマリー）」の文章案を約400字で作成してください。<br>構成は「①背景と学術的問い」「②本研究の目的と手法」「③期待される成果と意義」の順で、論理の飛躍がないように繋いでください。専門用語はなるべく噛み砕いてください。<br><br>[ここに背景・手法・意義などのメモを貼り付け]</p>
+              </div>
+            </details>
+
+            <details class="mb-3">
+              <summary class="cursor-pointer text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors">✍️ 文章案作成（着想に至った経緯など）</summary>
+              <div class="mt-2 bg-gray-50 rounded-xl p-4">
+                <p class="text-xs text-gray-500 mb-1">プロンプト例：</p>
+                <p class="text-xs text-gray-700 font-mono leading-relaxed">学振申請書の「本研究の着想に至った経緯」の項目を執筆しています。以下の私のこれまでの経験と、そこから生まれた問題意識のメモを繋ぎ合わせて、説得力のある文章案（約600字）を作成してください。<br>研究への熱意が伝わるトーンにしつつも、主観的になりすぎず、客観的で論理的な文章にしてください。<br><br>[ここにこれまでの研究や問題意識のメモを貼り付け]</p>
+              </div>
+            </details>
+
+            <details class="mb-3">
+              <summary class="cursor-pointer text-sm font-semibold text-gray-700 hover:text-cyan-600 transition-colors">🧐 本文添削（推敲・ブラッシュアップ）</summary>
+              <div class="mt-2 bg-gray-50 rounded-xl p-4">
+                <p class="text-xs text-gray-500 mb-1">プロンプト例：</p>
+                <p class="text-xs text-gray-700 font-mono leading-relaxed">以下の学振申請書のドラフト文章（[項目名：例：研究目的]）を添削してください。以下の3つの視点から厳しくチェックをお願いします。<br><br>1. 他の人文学分野の審査委員が読んでも意味が通じるか（難解な専門用語の指摘）。<br>2. 論理の飛躍や、文脈のねじれがないか。<br>3. 「〜と思われる」「〜かもしれない」といった弱気な表現を削り、より自信に満ちた説得力のある表現に直せるか。<br><br>修正案の提示とあわせて、なぜそのように修正したかの理由も教えてください。<br><br>[ここにドラフト文章を貼り付け]</p>
+              </div>
+            </details>
+          </div>
+
+          <!-- 注意点 -->
+          <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+            <p class="font-bold text-red-700 text-xs mb-2">AI利用の注意点</p>
+            <ul class="text-xs text-gray-600 space-y-1.5">
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">&#9679;</span><span><strong>一次資料の解釈はAIに委ねない</strong>：歴史的文書や文学作品の深い読解、ニュアンスの解釈は研究者自身のコアな仕事です。AIは「事実をもっともらしく捏造する（ハルシネーション）」ことがあるため、AIの解釈をそのまま鵜呑みにしてはいけません。</span></li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">&#9679;</span><span><strong>機密情報や未発表データの入力に注意</strong>：インタビューの文字起こしデータ（個人情報を含むもの）や、発表前の極めて重要な独自データは、学習に使用されない設定にするか、入力自体を控えるなどの配慮が必要です。</span></li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">&#9679;</span><span><strong>学振や大学のAI利用ポリシーの遵守</strong>：申請書やレポートを「AIに丸投げ」してそのまま提出することは、研究倫理に反する場合があります。あくまで「壁打ち相手」「推敲のアシスタント」として使い、最終的な執筆と責任は自分が負うことを徹底してください。</span></li>
+            </ul>
+          </div>
+        </div>
+
         <div class="bg-cyan-50 rounded-2xl p-4 mt-4 border border-cyan-100">
           <p class="text-sm text-gray-700">人文学研究に実際に使うことを想像しながら、生成AIという科学技術が社会に浸透することの良し悪しについて考えてみましょう！ 実際に触ってみることをお勧めします。</p>
         </div>
