@@ -1,7 +1,7 @@
 // Simple password protection
 (function() {
-  const PASS_HASH = '2026';
-  const STORAGE_KEY = 'hd_auth_2026';
+  const PASS_HASH = 'Taiwa&Toi!2026';
+  const STORAGE_KEY = 'hd_auth_v2';
 
   if (sessionStorage.getItem(STORAGE_KEY) === 'true') return;
 
