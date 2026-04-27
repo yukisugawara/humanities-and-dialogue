@@ -278,8 +278,29 @@
           <div class="flex items-center gap-2 mb-1">
             <span class="pill bg-purple-100 text-purple-600 text-xs" data-i18n="s3_pill_dialogue">対話ワーク</span>
           </div>
-          <h3 class="font-bold text-gray-800 text-sm" data-i18n="s3_step4_title">対話ワーク（15分 x 2ターン）</h3>
-          <p class="text-xs text-gray-500 mt-1" data-i18n="s3_step4_desc">グループワーク：問いを共有し、15分ずつ議論。最終的にグループの問いを選ぶ</p>
+          <h3 class="font-bold text-gray-800 text-sm" data-i18n="s3_step4_title">対話ワーク（3人グループ・15分 × 3問）</h3>
+          <p class="text-xs text-gray-500 mt-1 leading-relaxed" data-i18n="s3_step4_desc">
+            3人で協力して対話の〈問い〉を立てる練習。〈問い〉に答え・話し合うことが目的ではありません。
+          </p>
+          <div class="mt-3 space-y-2 text-xs text-gray-600">
+            <p data-i18n="s3_step4_prep">
+              <span class="font-semibold text-purple-700">準備：</span>進行役（ステップ・やることを明示）とタイムキーパーを決め、3人全員が考えてきた〈問い〉を1つチャットに書く。
+            </p>
+            <p data-i18n="s3_step4_schedule">
+              <span class="font-semibold text-purple-700">進め方：</span>チャットで上に書かれた〈問い〉から順に、1問あたり15分で話し合う（目安：①9:30-9:45 ／ ②9:45-10:00 ／ ③10:00-10:15）。
+            </p>
+            <ul class="list-none space-y-1 pl-2">
+              <li data-i18n="s3_step4_a"><span class="font-semibold text-purple-700">A.</span> 〈問い〉を立てた人が、その〈問い〉を考えたいと思った理由・背景を簡単に話す</li>
+              <li data-i18n="s3_step4_b"><span class="font-semibold text-purple-700">B.</span> 他の2人は、考えたいことを理解・確認するために質問する。理解できたら、対話と探究のための問いの条件・チェックポイントを踏まえて、3人が共有できるよりよい問いになるよう提案してもよい</li>
+              <li data-i18n="s3_step4_c"><span class="font-semibold text-purple-700">C.</span> 修正・理解・共有ができたら、〈問い〉を立てた人がチャットに修正案を書いて確定させる（時間内に修正まで終わった場合のみ、内容について話し合うことができる）</li>
+            </ul>
+            <p class="bg-red-50 border border-red-200 rounded-lg px-3 py-2" data-i18n="s3_step4_warn">
+              🙅 〈問い〉にいきなり答えて意見を言わないでください！
+            </p>
+            <p class="text-gray-500" data-i18n="s3_step4_note">
+              ※ 自分の〈問い〉については、最初の〈問い〉と他の人と一緒に修正した〈問い〉をメモしておくこと（あとでふりかえりシートで報告します）。
+            </p>
+          </div>
         </div>
       </div>
 
@@ -397,8 +418,15 @@ const i18n_en = {
   s3_step3_title: 'Q&A / Model demonstration',
   s3_step3_desc: 'Watch a demonstration by three teaching staff members (approx. 3 min)',
   s3_pill_dialogue: 'Dialogue Work',
-  s3_step4_title: 'Dialogue work (15 min x 2 turns)',
-  s3_step4_desc: 'Group work: share questions and discuss for 15 min each turn; select a group question at the end',
+  s3_step4_title: 'Dialogue work (groups of 3, 15 min × 3 questions)',
+  s3_step4_desc: 'Practice creating dialogue questions together in groups of 3. The aim is NOT to answer or discuss the questions themselves.',
+  s3_step4_prep: '<span class="font-semibold text-purple-700">Preparation:</span> Choose a facilitator (who states each step/task) and a timekeeper. All three members post one question each in the chat.',
+  s3_step4_schedule: '<span class="font-semibold text-purple-700">Procedure:</span> Take the questions in the order they appear in chat, spending 15 min per question (suggested: ① 9:30-9:45 / ② 9:45-10:00 / ③ 10:00-10:15).',
+  s3_step4_a: '<span class="font-semibold text-purple-700">A.</span> The author briefly explains the reason and background behind their question.',
+  s3_step4_b: '<span class="font-semibold text-purple-700">B.</span> The other two ask clarifying questions to understand what the author wants to explore. Once they understand, they may suggest improvements — referring to the criteria/checklist for inquiry questions — so the question becomes one all three can share.',
+  s3_step4_c: '<span class="font-semibold text-purple-700">C.</span> Once revision/understanding is complete, the author posts the revised question in chat to finalize it. (Only if revision finishes within the time may the group discuss its content.)',
+  s3_step4_warn: '🙅 Do NOT jump in and start answering or giving opinions about the question!',
+  s3_step4_note: '* Keep a note of both your original question and the revised version — you will report on these in the reflection form later.',
   s3_step5_title: 'Fill in the reflection form',
   s3_submit_form: 'Submit Reflection Form',
   s3_prep_title: 'Preparation for Next Session',
